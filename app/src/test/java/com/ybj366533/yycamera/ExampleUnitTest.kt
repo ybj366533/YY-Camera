@@ -1,4 +1,4 @@
-package com.ybj366533.yy_camera
+package com.ybj366533.yycamera
 
 import org.junit.Test
 
