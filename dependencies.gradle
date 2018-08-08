@@ -30,8 +30,8 @@ ext {
             "support-annotations"            : "com.android.support:support-annotations:${version['support']}",
 
             "kotlin-stdlib"                  : "org.jetbrains.kotlin:kotlin-stdlib:${version['kotlin']}",
-            "kotlin-stdlib-jre7"             : "org.jetbrains.kotlin:kotlin-stdlib-jar7:${version['kotlin']}",
-            "kotlin-stdlib-jre8"             : "org.jetbrains.kotlin:kotlin-stdlib-jar8:${version['kotlin']}",
+            "kotlin-stdlib-jdk7"             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${version['kotlin']}",
+            "kotlin-stdlib-jdk8"             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version['kotlin']}",
 
 
             // Anko

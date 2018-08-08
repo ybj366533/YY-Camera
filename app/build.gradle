@@ -37,7 +37,8 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs','src/main/kotlin', 'src/main/java']
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/main/kotlin', 'src/main/java']
         }
     }
 
@@ -45,7 +46,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.dependencies['appcompat-v7']
     implementation rootProject.ext.dependencies['constraint-layout']
     implementation rootProject.ext.dependencies['recyclerview-v7']
