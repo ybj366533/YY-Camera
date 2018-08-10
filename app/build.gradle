@@ -54,6 +54,7 @@ dependencies {
     implementation rootProject.ext.dependencies['support-annotations']
     implementation rootProject.ext.dependencies['multidex']
     implementation rootProject.ext.dependencies['anko']
+    implementation project(':library')
 
 
     testImplementation 'junit:junit:4.12'
