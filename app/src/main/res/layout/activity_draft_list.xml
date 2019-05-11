@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gtv.cloud.gtvideo.DraftListActivity">
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/kklive_color_bg_0pct">
+        <TextView
+            android:id="@+id/draft_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/video_gray"
+            android:drawableLeft="@mipmap/btn_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="草稿箱"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="清空"
+            android:textSize="16sp"
+            android:textColor="@color/video_gray"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btn_clear"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_bar"
+        android:id="@+id/draft_recycle"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

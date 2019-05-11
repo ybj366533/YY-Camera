@@ -3,4 +3,48 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="black">#000000</color>
+
+
+    <!-- 临时 start -->
+    <color name="colorTranslucent">#00000000</color>
+    <color name="colorWhite">#ffffffff</color>
+
+    <color name="egg_yellow">#ffcb15</color>
+    <color name="faceu_green">#2ddbb1</color>
+
+    <color name="c80000000">#80000000</color> <!--50%-->
+    <color name="percent60translucentBlack">#99000000</color>
+
+    <!-- Whites -->
+    <color name="white">#ffffff</color>
+
+    <color name="unselect_gray">#48ffffff</color>
+    <!-- 临时 end -->
+
+
+    <!-- 整理-->
+    <color name="kklive_color_bg_60pct">#99232A42</color>
+    <color name="kklive_color_bg_80pct">#CC232A42</color>
+    <color name="kklive_color_bg_0pct">#ff232A42</color>
+    <color name="kklive_record_fill_progress">#EF4B81</color>
+    <color name="kklive_timeline_backgound_color">#D8D8D8</color>
+    <color name="text_disable_color">#808080</color>
+
+    <color name="color1">#fffFFF</color>
+    <color name="color2">#FFFF5267</color>
+    <color name="color3">#FECD52</color>
+    <color name="color4">#145CB9</color>
+    <color name="color5">#21AE58</color>
+    <color name="color6">#2ddbb1</color>
+    <color name="color7">#ff6600</color>
+    <color name="color8">#FFCC00</color>
+    <color name="color9">#8ECD52</color>
+    <color name="color10">#745CB9</color>
+    <color name="color11">#B1AE58</color>
+    <color name="color12">#1Edb00</color>
+    <color name="color_null">#00000000</color>
+    <color name="video_gray">#aadddddd</color>
+    <color name="drak_gray">#292929</color>
 </resources>

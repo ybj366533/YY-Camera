@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_margin="4px"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/effect_toushi"
+        android:id="@+id/iv_video"
+        />
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_video"
+        android:text="23waw"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/tv_str"
+        />
+</RelativeLayout>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_zhumai"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    tools:context="com.gtv.cloud.gtvideo.GTVVideoEditActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.opengl.GLSurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/glSurfaceView" />
+    </FrameLayout>
+
+    <RelativeLayout android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/kklive_color_bg_60pct"
+        android:visibility="invisible"
+        android:id="@+id/top_video_crop"
+        >
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@mipmap/back"
+            android:id="@+id/btn_cut_video_back"
+            android:layout_marginTop="10dp"
+            />
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            />
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@mipmap/check"
+            android:id="@+id/btn_cut_video_ok"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/gtv_video_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/kklive_edit_tools_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:background="@color/kklive_color_bg_60pct">
+
+            <TextView android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@mipmap/back"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:id="@+id/btn_back"
+                android:layout_marginTop="10dp"
+                />
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:id="@+id/cover_setting_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="10sp"
+                    android:drawableTop="@mipmap/cover"
+                    android:text="设置封面" />
+
+                <TextView
+                    android:id="@+id/slow_motion_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:drawableTop="@mipmap/slow"
+                    android:textSize="10sp"
+                    android:text="慢动作" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/slow_motion_setting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/kklive_edit_tools_bar"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_slowmotion_time"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="慢"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_weight="1"
+                android:background="@drawable/slowmotion_btn_menu"
+                android:visibility="invisible"/>
+
+            <SeekBar android:id="@+id/progressBar_slowmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:progressDrawable="@drawable/slowmotion_seekbar_layer"
+                android:thumb="@mipmap/slow_motion_slide"
+                android:max="100"
+                android:progress="0"
+                android:layout_weight="8"/>
+
+            <TextView
+                android:id="@+id/text_slowmotion_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="00:00"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/effect_setting_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/effects"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:text="设置特效"/>
+            <TextView
+                android:id="@+id/cut_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/vidoe_cut"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:text="视频裁剪"/>
+
+            <TextView
+                android:id="@+id/no_music_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/audio_cut"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:text="裁剪配乐"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"
+            android:text="下一步" />
+
+    </RelativeLayout>
+
+    <com.gtv.cloud.gtvideo.ui.VideoEffectEditControlView
+        android:id="@+id/videoEffectEditControlView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+
+    <include layout="@layout/cut_audio_layout" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cut_audio_layout"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        />
+    <LinearLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        android:id="@+id/layout_video_frame"
+        >
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/video_seek"
+            android:layout_marginBottom="10dp"
+            android:progressBackgroundTint="@color/white"
+            android:max="100"
+            />
+
+        <com.libq.videocutpreview.VideoCutView
+            android:id="@+id/cut_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:draw_cursor="false"
+            app:top_bottom_border_width="10dp"
+            app:border_color="@color/colorAccent"
+            app:slider_width="6dp"
+            android:layout_alignParentBottom="true"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>
+

@@ -1,0 +1,38 @@
+{
+    "version": "0.1",
+    "head": [
+             "ear", "tooth", "face"
+             ],
+    "body": {
+        "ear": {
+            "interval" : 50,
+            "frameCount": 20,
+            "width": 840,
+            "height": 472,
+            "positionIndex": 27,
+            "positionX": 420,
+            "positionY": 600,
+            "zPosition": 3
+        },
+        "face": {
+            "interval" : 50,
+            "frameCount": 18,
+            "width": 576,
+            "height": 222,
+            "positionIndex": 30,
+            "positionX": 287,
+            "positionY": 67,
+            "zPosition": 2
+        },
+        "tooth": {
+            "interval" : 50,
+            "frameCount": 5,
+            "width": 131,
+            "height": 109,
+            "positionIndex": 62,
+            "positionX": 66,
+            "positionY": 33,
+            "zPosition": 1
+        }
+    }
+}

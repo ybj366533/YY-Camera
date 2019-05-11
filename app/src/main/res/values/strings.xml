@@ -1,4 +1,19 @@
 <resources>
-    <string name="app_name">YY-Camera</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">GT短视频</string>
+    <string name="title_activity_stream">StreamActivity</string>
+    <string name="title_activity_fumai">FumaiActivity</string>
+    <string name="record_sticker">贴纸</string>
+    <string name="record_filter">滤镜</string>
+    <string name="record_beauty">美颜</string>
+    <string name="record_speed">速度</string>
+    <string name="record_countdown">倒计时</string>
+
+    <string name="music_sweet">Sweet Melody</string>
+    <string name="music_witness">Can I Get A Witness</string>
+    <string name="music_sorry">Sorry Not Sorry</string>
+    <string name="music_love">Love Story</string>
+
+    <string name="music_panama">Panama</string>
+    <string name="music_travel">带你去旅行</string>
+    <string name="music_hongzhaoyuan">红昭愿</string>
 </resources>

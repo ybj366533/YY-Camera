@@ -1,29 +1,63 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:background="@mipmap/main_bg"
+    tools:context="com.gtv.cloud.gtvideo.MainActivity">
 
         <Button
-            android:id="@+id/button_gallery"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_draft_start"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:drawableTop="@android:drawable/ic_menu_gallery"
-            android:text="Gallery" />
+            android:layout_marginTop="50dp"
+            android:text="草稿箱"/>
 
         <Button
-            android:id="@+id/button_camera"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_record2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableTop="@android:drawable/ic_menu_camera"
-            android:text="Camera" />
-    </LinearLayout>
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/btn_draft_start"
+            android:text="record2接口演示"/>
+        <Button
+            android:id="@+id/btn_recordST"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/btn_record2"
+            android:text="recordST接口演示"/>
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_play_btn"
+                    android:src="@mipmap/main_btn_crop"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_btn_record"
+                    android:src="@mipmap/main_btn_record"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_draft"
+                    android:text="草稿箱"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+
+</RelativeLayout>

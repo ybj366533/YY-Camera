@@ -1,0 +1,18 @@
+{
+    "version": "0.1",
+	"head": [
+		"hulu"
+	],
+    "body": {
+        "hulu": {
+            "interval" : 50,
+            "frameCount": 21,
+            "width": 5000,
+            "height": 2500,
+            "positionIndex": 9999,
+            "positionX": 1000,
+            "positionY": 1000,
+            "zPosition": 0
+        }
+    }
+}

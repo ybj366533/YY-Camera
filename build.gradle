@@ -25,6 +25,7 @@ allprojects {
         maven { url rootProject.ext.maven.jcenter }
         maven { url rootProject.ext.maven.googleMaven }
         maven { url rootProject.ext.maven.jitpack }
+        google()
     }
 }
 

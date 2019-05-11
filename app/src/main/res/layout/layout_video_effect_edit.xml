@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/video_play_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <LinearLayout
+            android:id="@+id/kklive_edit_tools_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/kklive_color_bg_60pct"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical">
+
+                <TextView
+                    android:id="@+id/effect_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:text="取消"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical">
+
+                <TextView
+                    android:id="@+id/effect_save_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:text="保存"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/glSurfaceView_placehodler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/kklive_edit_tools_bar"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="40dp"
+            android:background="#00000000">
+
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/btn_live_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@mipmap/edit_play" />
+
+
+        <RelativeLayout
+            android:id="@+id/kklive_play_timeline"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_live_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:text="00:00"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" >
+                <com.gtv.cloud.gtvideo.widget.RecordedLayout
+                    android:id="@+id/ll_recoded"
+                    android:layout_width="280dp"
+                    android:layout_height="24dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_live_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="--:--"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/kklive_color_bg_0pct">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="选择位置后，按住使用特效"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btn_delete_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="撤销"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_stickers"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:scrollbars="horizontal"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

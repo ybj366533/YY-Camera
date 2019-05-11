@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <TextView
+            android:layout_width="0px"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="左右拖动声谱以剪取音乐"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+        <ImageButton
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:src="@mipmap/check"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btn_cut_audio_ok"
+            />
+    </LinearLayout>
+
+    <TextView android:textSize="10sp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:id="@+id/cut_start_time"
+        />
+    <com.libq.scrolltrackview.ScrollTrackView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/scroll_track"
+        app:foreground_color="@color/egg_yellow"
+        app:background_color="@color/white"
+        />
+
+
+</LinearLayout>

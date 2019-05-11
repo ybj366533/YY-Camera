@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gtv.cloud.gtvideo.RecordFinishActivity">
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:id="@+id/btn_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="返回"
+        android:textSize="20dp"/>
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="取消"
+        android:textSize="20dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:id="@+id/btn_publish"
+        android:layout_below="@id/btn_return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="发布(保存到相册)"
+        android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/btn_draft"
+        android:layout_below="@id/btn_publish"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="草稿箱"
+        android:textSize="20dp"/>
+
+
+</RelativeLayout>
