@@ -1,7 +1,6 @@
 package com.ybj366533.yycamera
 
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.media.MediaScannerConnection
@@ -25,21 +24,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.ZoomControls
-
-import com.gtv.cloud.gtvideo.ui.CameraGLSurfaceViewST
-import com.gtv.cloud.gtvideo.ui.FocusImageView
-import com.gtv.cloud.gtvideo.ui.MusicSelectController
-import com.gtv.cloud.gtvideo.ui.RecordSettingControllerST
-import com.gtv.cloud.gtvideo.ui.RecordSettingRecyclerAdapterST
-import com.gtv.cloud.gtvideo.ui.RecordTimelineView
-import com.gtv.cloud.gtvideo.ui.SpeedRecyclerAdapter
-import com.gtv.cloud.gtvideo.utils.ToolUtils
 import com.gtv.cloud.recorder.GTVRecordSTCreator
 import com.gtv.cloud.recorder.GTVVideoInfo
 import com.gtv.cloud.recorder.IGTVVideoRecorderST
 import com.gtv.cloud.recorder.RecordCallback
 import com.gtv.cloud.utils.GTVMusicHandler
 import com.gtv.cloud.utils.LogUtils
+import com.ybj366533.yycamera.ui.*
 
 import java.io.File
 import java.util.ArrayList

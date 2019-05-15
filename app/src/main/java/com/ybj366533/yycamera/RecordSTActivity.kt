@@ -10,13 +10,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 
-import com.gtv.cloud.gtvideo.ui.CameraGLSurfaceViewST
-import com.gtv.cloud.gtvideo.utils.ToolUtils
 import com.gtv.cloud.recorder.GTVRecordSTCreator
 import com.gtv.cloud.recorder.GTVVideoInfo
 import com.gtv.cloud.recorder.IGTVVideoRecorderST
 import com.gtv.cloud.recorder.RecordCallback
 import com.gtv.cloud.utils.LogUtils
+import com.ybj366533.yycamera.ui.CameraGLSurfaceViewST
+import com.ybj366533.yycamera.utils.ToolUtils
 
 import java.io.File
 import java.util.ArrayList
@@ -24,7 +24,7 @@ import java.util.ArrayList
 
 class RecordSTActivity : AppCompatActivity() {
 
-    internal var cameraGLSurfaceView: CameraGLSurfaceViewST
+    internal lateinit var cameraGLSurfaceView: CameraGLSurfaceViewST
 
     private var mRecorder: IGTVVideoRecorderST? = null
 
@@ -80,20 +80,18 @@ class RecordSTActivity : AppCompatActivity() {
         }
 
         initGTVSDK()
-        cameraGLSurfaceView.setTexutreListener(object : CameraGLSurfaceViewST.OnTextureListener() {
-            fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
-                if (mRecorder != null) {
+        cameraGLSurfaceView.setTexutreListener(object : CameraGLSurfaceViewST.OnTextureListener {
+            override fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
+                return if (mRecorder != null) {
                     if (eglContext == null) {
                         eglContext = cameraGLSurfaceView.currentContext
                         // 在调用播放动画 startAnimation之前，需要设置EGLContext
                         mRecorder!!.setEGLContext(eglContext, textureWidth, textureHeight)
                     }
-                    return mRecorder!!.inputVideoFrame(textureId, textureWidth, textureHeight, false, timestampNanos)
+                    mRecorder!!.inputVideoFrame(textureId, textureWidth, textureHeight, false, timestampNanos)
                 } else {
-                    return textureId
+                    textureId
                 }
-                //mRecorder.writeVideoFrame(textureId, textureWidth, textureHeight,false, timestampNanos);
-                //return 0;
             }
         })
 
@@ -103,9 +101,9 @@ class RecordSTActivity : AppCompatActivity() {
 
     private fun initGTVSDK() {
 
-        val recordCallback = object : RecordCallback() {
+        val recordCallback = object : RecordCallback {
 
-            fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
+            override fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
 
                 //                //mRecorder.switchCamera(1);
                 //                // 可以获取上次拍摄的录像，根据需要选择是否继续，还是重新开始
@@ -158,7 +156,7 @@ class RecordSTActivity : AppCompatActivity() {
             }
 
             // 一个片段录制结束
-            fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
+            override fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
 
                 LogUtils.LOGI("app", "onRecordComplete")
 
@@ -196,9 +194,9 @@ class RecordSTActivity : AppCompatActivity() {
             }
 
 
-            fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
+            override fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
                 //                Log.e(TAG, "onProgress " + gtvVideoInfo.getCount() + " " + gtvVideoInfo.getTotalDuration() + " " + duration );
-                for (i in 0 until gtvVideoInfo.getVideoClipList().size()) {
+                for (i in 0 until gtvVideoInfo.videoClipList.size) {
                     //                    Log.e(TAG, "onProgress " + gtvVideoInfo.getVideoClipList().get(i).getFileName() + " " +  gtvVideoInfo.getVideoClipList().get(i).getDuration());
                 }
                 //                runOnUiThread(new Runnable() {
@@ -210,7 +208,7 @@ class RecordSTActivity : AppCompatActivity() {
             }
 
 
-            fun onMaxDuration() {
+            override fun onMaxDuration() {
                 LogUtils.LOGI("app", "onMaxDuration ")
                 // 可以停止拍摄了
                 //                runOnUiThread(new Runnable() {
@@ -223,7 +221,7 @@ class RecordSTActivity : AppCompatActivity() {
             }
 
             // 导出结束，得到完整的录像文件，可根据需要进入编辑页面
-            fun onExportComplete(ok: Boolean) {
+            override fun onExportComplete(ok: Boolean) {
                 LogUtils.LOGI("app", "onExportComplete $ok")
 
                 runOnUiThread {
@@ -261,11 +259,11 @@ class RecordSTActivity : AppCompatActivity() {
 
             }
 
-            fun onError(errorCode: Int) {
+            override fun onError(errorCode: Int) {
 
             }
 
-            fun onCameraOpenFailed() {
+            override fun onCameraOpenFailed() {
                 //                runOnUiThread(new Runnable() {
                 //                    @Override
                 //                    public void run() {

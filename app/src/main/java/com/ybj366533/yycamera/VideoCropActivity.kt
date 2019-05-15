@@ -23,8 +23,8 @@ import com.gtv.cloud.editor.EditCallback
 import com.gtv.cloud.editor.GTVEditorCreator
 import com.gtv.cloud.editor.GTVExtractFrameInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.utils.FileUtils
 import com.libq.videocutpreview.VideoCutView
+import com.ybj366533.yycamera.utils.FileUtils
 
 import java.io.File
 import java.util.ArrayList
@@ -100,8 +100,8 @@ class VideoCropActivity : AppCompatActivity() {
 
         mEditor = GTVEditorCreator.getInstance()
         //mEditor 初始化
-        mEditor!!.init(surfaceView, videoPath, object : EditCallback() {
-            fun onInitReady() {
+        mEditor!!.init(surfaceView, videoPath, object : EditCallback {
+            override fun onInitReady() {
                 runOnUiThread {
                     mEditor!!.startPreview()
                     videoDuration = mEditor!!.getDuration()
@@ -115,7 +115,7 @@ class VideoCropActivity : AppCompatActivity() {
                 }
             }
 
-            fun onPlayComplete() {
+            override fun onPlayComplete() {
                 //播放完毕，拖动到指定开始位置继续播放
                 runOnUiThread {
                     mEditor!!.playPause()
@@ -123,15 +123,15 @@ class VideoCropActivity : AppCompatActivity() {
                 }
             }
 
-            fun onError(i: Int) {
+            override fun onError(i: Int) {
                 runOnUiThread { Toast.makeText(this@VideoCropActivity, "裁切失败", Toast.LENGTH_LONG).show() }
             }
 
-            fun onProgress(i: Int) {
+            override fun onProgress(i: Int) {
                 runOnUiThread { }
             }
 
-            fun onComposeFinish(i: Int) {
+            override fun onComposeFinish(i: Int) {
                 runOnUiThread {
                     startScanFile()
                     progressBar!!.visibility = View.INVISIBLE

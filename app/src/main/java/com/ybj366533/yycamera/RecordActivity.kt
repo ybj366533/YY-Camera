@@ -6,17 +6,17 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 
-import com.gtv.cloud.gtvideo.ui.CameraGLSurfaceView
-import com.gtv.cloud.gtvideo.utils.ToolUtils
 import com.gtv.cloud.recorder.GTVRecordCreator2
 import com.gtv.cloud.recorder.GTVVideoInfo
 import com.gtv.cloud.recorder.IGTVVideoRecorder2
 import com.gtv.cloud.recorder.RecordCallback
 import com.gtv.cloud.utils.LogUtils
+import com.ybj366533.yycamera.ui.CameraGLSurfaceView
+import com.ybj366533.yycamera.utils.ToolUtils
 
 class RecordActivity : AppCompatActivity() {
 
-    internal var cameraGLSurfaceView: CameraGLSurfaceView
+    private lateinit var cameraGLSurfaceView: CameraGLSurfaceView
 
     private var mRecorder: IGTVVideoRecorder2? = null
 
@@ -36,10 +36,10 @@ class RecordActivity : AppCompatActivity() {
         recordBtn!!.text = "start"
         recording = false
         recordBtn!!.setOnClickListener {
-            if (recording == false) {
+            if (!recording) {
                 mRecorder!!.startRecord(cameraGLSurfaceView.currentContext)
-                cameraGLSurfaceView.setTexutreListener(object : CameraGLSurfaceView.OnTextureListener() {
-                    fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
+                cameraGLSurfaceView.setTexutreListener(object : CameraGLSurfaceView.OnTextureListener {
+                    override fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
                         mRecorder!!.writeVideoFrame(textureId, textureWidth, textureHeight, false, timestampNanos)
                         return 0
                     }
@@ -60,9 +60,9 @@ class RecordActivity : AppCompatActivity() {
 
     private fun initGTVSDK() {
 
-        val recordCallback = object : RecordCallback() {
+        val recordCallback = object : RecordCallback {
 
-            fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
+            override fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
 
                 //                //mRecorder.switchCamera(1);
                 //                // 可以获取上次拍摄的录像，根据需要选择是否继续，还是重新开始
@@ -115,7 +115,7 @@ class RecordActivity : AppCompatActivity() {
             }
 
             // 一个片段录制结束
-            fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
+            override fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
 
                 LogUtils.LOGI("app", "onRecordComplete")
 
@@ -157,9 +157,9 @@ class RecordActivity : AppCompatActivity() {
             }
 
 
-            fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
+            override fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
                 //                Log.e(TAG, "onProgress " + gtvVideoInfo.getCount() + " " + gtvVideoInfo.getTotalDuration() + " " + duration );
-                for (i in 0 until gtvVideoInfo.getVideoClipList().size()) {
+                for (i in 0 until gtvVideoInfo.videoClipList.size) {
                     //                    Log.e(TAG, "onProgress " + gtvVideoInfo.getVideoClipList().get(i).getFileName() + " " +  gtvVideoInfo.getVideoClipList().get(i).getDuration());
                 }
                 //                runOnUiThread(new Runnable() {
@@ -171,7 +171,7 @@ class RecordActivity : AppCompatActivity() {
             }
 
 
-            fun onMaxDuration() {
+            override fun onMaxDuration() {
                 LogUtils.LOGI("app", "onMaxDuration ")
                 // 可以停止拍摄了
                 //                runOnUiThread(new Runnable() {
@@ -184,7 +184,7 @@ class RecordActivity : AppCompatActivity() {
             }
 
             // 导出结束，得到完整的录像文件，可根据需要进入编辑页面
-            fun onExportComplete(ok: Boolean) {
+            override fun onExportComplete(ok: Boolean) {
                 LogUtils.LOGI("app", "onExportComplete $ok")
 
                 //                runOnUiThread(new Runnable() {
@@ -228,11 +228,11 @@ class RecordActivity : AppCompatActivity() {
 
             }
 
-            fun onError(errorCode: Int) {
+            override fun onError(errorCode: Int) {
 
             }
 
-            fun onCameraOpenFailed() {
+            override fun onCameraOpenFailed() {
                 //                runOnUiThread(new Runnable() {
                 //                    @Override
                 //                    public void run() {

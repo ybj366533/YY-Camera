@@ -9,6 +9,11 @@ import android.opengl.GLES11Ext
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
+import com.gtv.cloud.utils.LogUtils
+import com.gtv.gtvimage.gtvfilter.filter.advanced.GTVGroupFilter
+import com.gtv.gtvimage.gtvfilter.filter.base.GTVBaseGroupFilter
+import com.gtv.gtvimage.gtvfilter.filter.base.GTVImageFilter
+import com.gtv.gtvimage.gtvfilter.filter.base.GTVOESInputFilter
 
 import java.util.ArrayList
 
@@ -25,7 +30,7 @@ class CameraGLSurfaceViewST @JvmOverloads constructor(internal var mContext: Con
 
     var currentContext: EGLContext? = null
     internal var mTextureID = -1
-    internal var mDirectDrawer: DirectDrawer
+    internal lateinit var mDirectDrawer: DirectDrawer
 
     private var grpFilter: GTVGroupFilter? = null
     private var oesInputFilter: GTVOESInputFilter? = null
@@ -65,7 +70,7 @@ class CameraGLSurfaceViewST @JvmOverloads constructor(internal var mContext: Con
 
         oesInputFilter = GTVOESInputFilter()
         val list = ArrayList<GTVImageFilter>()
-        list.add(oesInputFilter)
+        list.add(oesInputFilter!!)
         //list.add(gtvBeautyFilter);
         //list.add(gtvDummyFilter);
         grpFilter = GTVGroupFilter(list)
@@ -156,7 +161,7 @@ class CameraGLSurfaceViewST @JvmOverloads constructor(internal var mContext: Con
         fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int
     }
 
-    fun setTexutreListener(listener: OnTextureListener) {
+    fun setTexutreListener(listener: OnTextureListener?) {
         onTextureListener = listener
     }
 

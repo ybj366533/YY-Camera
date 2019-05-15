@@ -32,16 +32,16 @@ import com.gtv.cloud.editor.EditCallback
 import com.gtv.cloud.editor.GTVEditorCreator
 import com.gtv.cloud.editor.GTVExtractFrameInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.ui.VideoEffectEditControlView
-import com.gtv.cloud.gtvideo.utils.FileUtils
-import com.gtv.cloud.gtvideo.utils.MediaUtil
-import com.gtv.cloud.gtvideo.utils.ToolUtils
-import com.gtv.cloud.gtvideo.widget.SimpleEditCallback
 import com.gtv.cloud.utils.GTVVideoUtils
 import com.gtv.cloud.utils.LogUtils
 import com.libq.scrolltrackview.ScrollTrackView
 import com.libq.videocutpreview.VideoCutView
 import com.libq.videocutpreview.VideoThumbnailView
+import com.ybj366533.yycamera.ui.VideoEffectEditControlView
+import com.ybj366533.yycamera.utils.FileUtils
+import com.ybj366533.yycamera.utils.MediaUtil
+import com.ybj366533.yycamera.utils.ToolUtils
+import com.ybj366533.yycamera.widget.SimpleEditCallback
 
 import java.io.File
 import java.text.NumberFormat
@@ -496,7 +496,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
                     mEditor!!.setSlowPlayTime(startTime, startTime + 1000)
 
                     val textSlowMotionStarTime = findViewById<View>(R.id.text_slowmotion_total_time) as TextView
-                    textSlowMotionStarTime?.setText(ToolUtils.stringForTime(startTime))
+                    textSlowMotionStarTime?.setText(ToolUtils.stringForTime(startTime.toLong()))
                 }
             }
 

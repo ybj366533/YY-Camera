@@ -23,23 +23,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.ZoomControls
-
-import com.gtv.cloud.gtvideo.ui.FilterRecyclerAdapter
-import com.gtv.cloud.gtvideo.ui.FocusImageView
-import com.gtv.cloud.gtvideo.ui.MusicSelectController
-import com.gtv.cloud.gtvideo.ui.RecordSettingController
-import com.gtv.cloud.gtvideo.ui.RecordSettingRecyclerAdapter
-import com.gtv.cloud.gtvideo.ui.RecordTimelineView
-import com.gtv.cloud.gtvideo.ui.SpeedRecyclerAdapter
-import com.gtv.cloud.gtvideo.ui.StickerRecylerAdapter
-import com.gtv.cloud.gtvideo.widget.CameraGLSurfaceView
-import com.gtv.cloud.gtvideo.widget.RecordedButton
 import com.gtv.cloud.recorder.GTVRecordCreator
 import com.gtv.cloud.recorder.GTVVideoInfo
 import com.gtv.cloud.recorder.IGTVVideoRecorder
 import com.gtv.cloud.recorder.RecordCallback
 import com.gtv.cloud.utils.GTVMusicHandler
 import com.gtv.cloud.utils.LogUtils
+import com.ybj366533.yycamera.ui.*
+import com.ybj366533.yycamera.widget.RecordedButton
 
 import java.io.BufferedOutputStream
 import java.io.File
@@ -49,10 +40,10 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
     private var glSurfaceView: CameraGLSurfaceView? = null
 
-    internal var mNextBtn: TextView
-    internal var btnCancel: ImageView
-    internal var btnRecordStart: RecordedButton
-    internal var btnRecordDeleteLast: ImageView
+    private lateinit var mNextBtn: TextView
+    private lateinit var btnCancel: ImageView
+    internal lateinit var btnRecordStart: RecordedButton
+    internal lateinit var btnRecordDeleteLast: ImageView
 
     private var mSwitchBtn: ImageView? = null
     private var mLightBtn: ImageView? = null
@@ -241,16 +232,14 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         recordSettingContainer = findViewById(R.id.record_setting_container)
         recordSettingContainer!!.setOnClickListener { recordSettingContainer!!.visibility = View.GONE }
 
-        recordSettingController = RecordSettingController(this, recordSettingContainer, this, this)
-        recordSettingController!!.setSpeedCheckListener(object : SpeedRecyclerAdapter.OnSpeedCheckListener() {
-            fun onSpeedChecked(pos: Int, speed: String): Boolean {
+        recordSettingController = RecordSettingController(this, recordSettingContainer!!, this, this)
+        recordSettingController!!.setSpeedCheckListener(object : SpeedRecyclerAdapter.OnSpeedCheckListener {
+            override fun onSpeedChecked(pos: Int, speed: String): Boolean {
                 if (mRecorder != null) {
-                    if (speed == "slow") {
-                        mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.SLOW)
-                    } else if (speed == "fast") {
-                        mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.FAST)
-                    } else {
-                        mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.STANDARD)
+                    when (speed) {
+                        "slow" -> mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.SLOW)
+                        "fast" -> mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.FAST)
+                        else -> mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.STANDARD)
                     }
                 }
                 return true
@@ -265,14 +254,14 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
     }
 
-    fun onStickerChecked(pos: Int, path: String): Boolean {
+    override fun onStickerChecked(pos: Int, path: String): Boolean {
 
         mRecorder!!.setStickerPath(path)
 
         return true
     }
 
-    fun onFilterChecked(pos: Int, path: String): Boolean {
+    override fun onFilterChecked(pos: Int, path: String): Boolean {
         setMagicFilterType(pos)
         return true
     }
@@ -385,8 +374,8 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
             recordSettingContainer!!.visibility = View.INVISIBLE
             btnRecordStart.setVisibility(View.VISIBLE)
         } else if (v === btnTakePicture) {
-            mRecorder!!.takePicture(object : IGTVVideoRecorder.ITakePictureCallback() {
-                fun onBitmapReady(bmp: Bitmap) {
+            mRecorder!!.takePicture(object : IGTVVideoRecorder.ITakePictureCallback {
+                override fun onBitmapReady(bmp: Bitmap) {
 
                     //根据业务需要，设置照片要保存的位置
                     val p = Environment.getExternalStorageDirectory().toString() + File.separator + Environment.DIRECTORY_DCIM + "/pic001.jpg"
@@ -411,7 +400,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
     }
 
     override fun onBackPressed() {
-        if (firstClipRecord == true) {     // 还没录制过，直接返回
+        if (firstClipRecord) {     // 还没录制过，直接返回
             super@GTVVideoRecordStreamActivity.onBackPressed()
             return
         }
@@ -465,26 +454,26 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         })
 
         //btnRecordStart.setOnTouchListener(this);
-        btnRecordStart.setOnGestureListener(object : RecordedButton.OnGestureListener() {
-            fun onClickStart() {
+        btnRecordStart.setOnGestureListener(object : RecordedButton.OnGestureListener {
+            override fun onClickStart() {
                 //开始
                 Log.e("btnRecordStart", "onClickStart")
                 startRecord()
             }
 
-            fun onClickPause() {
+            override fun onClickPause() {
                 //暂停
                 Log.e("btnRecordStart", "onClickPause")
                 pauseRecord()
             }
 
-            fun onClickReset() {
+            override fun onClickReset() {
                 //重置
                 Log.e("btnRecordStart", "onClickReset")
                 mRecorder!!.deleteAllVideoClips()
             }
 
-            fun onProgressOver() {
+            override fun onProgressOver() {
                 //结束
                 Log.e("btnRecordStart", "onProgressOver")
                 //stopRecord();
@@ -501,25 +490,25 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         mRecordTimeTxt = findViewById<View>(R.id.kklive_record_time) as TextView
         recordTimelineView = findViewById<View>(R.id.kklive_record_timeline) as RecordTimelineView
         recordTimelineView!!.setMaxDuration(MAX_RECORD_DURATION)
-        recordTimelineView!!.setVisibility(View.INVISIBLE)
+        recordTimelineView!!.visibility = View.INVISIBLE
 
         mSettingList = findViewById<View>(R.id.mSettingList) as RecyclerView
         mSettingList!!.layoutManager = LinearLayoutManager(this.applicationContext, LinearLayoutManager.VERTICAL, false)
         recordSettingRecyclerAdapter = RecordSettingRecyclerAdapter(this)
-        recordSettingRecyclerAdapter!!.setSettingItemCheckListener(object : RecordSettingRecyclerAdapter.OnSettingItemCheckListener() {
-            fun onSettingItemChecked(pos: Int, settingName: String): Boolean {
+        recordSettingRecyclerAdapter!!.setSettingItemCheckListener(object : RecordSettingRecyclerAdapter.OnSettingItemCheckListener {
+            override fun onSettingItemChecked(pos: Int, settingName: String): Boolean {
                 if (settingName.equals("countdown", ignoreCase = true)) {
                     val textView = findViewById<View>(R.id.textview_countdown) as TextView
                     textView.visibility = View.VISIBLE
                     mSettingList!!.visibility = View.INVISIBLE
-                    btnRecordStart.setVisibility(View.INVISIBLE)
+                    btnRecordStart.visibility = View.INVISIBLE
                     recordSettingContainer!!.visibility = View.INVISIBLE
                     val myCountTimer = MyCountDownTimer((3000 + 300).toLong(), 1000, textView)
                     myCountTimer.start()
 
                 } else {
                     recordSettingContainer!!.visibility = View.VISIBLE
-                    btnRecordStart.setVisibility(View.INVISIBLE)
+                    btnRecordStart.visibility = View.INVISIBLE
                     if (recordSettingController != null) {
                         recordSettingController!!.setDisplayItem(settingName)
                     }

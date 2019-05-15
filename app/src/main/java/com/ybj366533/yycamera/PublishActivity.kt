@@ -25,10 +25,10 @@ import android.widget.Toast
 import com.gtv.cloud.editor.EditCallback
 import com.gtv.cloud.editor.GTVComposerCreator
 import com.gtv.cloud.editor.IGTVVideoComposer
-import com.gtv.cloud.gtvideo.utils.FileUtils
-import com.gtv.cloud.gtvideo.utils.JsonUtil
-import com.gtv.cloud.gtvideo.utils.SPUtils
-import com.gtv.cloud.gtvideo.utils.ToolUtils
+import com.ybj366533.yycamera.utils.FileUtils
+import com.ybj366533.yycamera.utils.JsonUtil
+import com.ybj366533.yycamera.utils.SPUtils
+import com.ybj366533.yycamera.utils.ToolUtils
 
 import java.io.File
 
@@ -81,7 +81,7 @@ class PublishActivity : AppCompatActivity() {
         //        etInfo = (EditText) findViewById(R.id.etinfo);
         etInfo!!.hint = "input something"
 
-        DRAFT_DIR_PATH = SPUtils.get(this@PublishActivity, Constants.KEY_DRAFT_DIR, "") + ""    //uuid?
+        DRAFT_DIR_PATH = SPUtils[this@PublishActivity, Constants.KEY_DRAFT_DIR, ""].toString()    //uuid?
 
 
         //初始化按钮文本
@@ -140,7 +140,7 @@ class PublishActivity : AppCompatActivity() {
                     if (!FileUtils.createFile(draftWorkFolder, Constants.PARAMS_JSON)) {//文件之前不存在
                         val util = JsonUtil("{}")
                         util.putParam("A", "1").putParam("B", "2")
-                        FileUtils.writeFileContent(jsonPath, util.getJsonString())
+                        FileUtils.writeFileContent(jsonPath, util.jsonString)
                         util.close()
                     }
 
@@ -165,26 +165,26 @@ class PublishActivity : AppCompatActivity() {
 
     private fun startCompose() {
 
-        val editCallback = object : EditCallback() {
-            fun onInitReady() {
+        val editCallback = object : EditCallback {
+            override fun onInitReady() {
 
             }
 
-            fun onPlayComplete() {
+            override fun onPlayComplete() {
 
             }
 
-            fun onError(errorCode: Int) {
+            override fun onError(errorCode: Int) {
 
             }
 
-            fun onProgress(progress: Int) {
+            override fun onProgress(progress: Int) {
                 if (dialog != null) {
                     dialog!!.progress = progress
                 }
             }
 
-            fun onComposeFinish(reason: Int) {
+            override fun onComposeFinish(reason: Int) {
                 dialog!!.dismiss()
                 dialog = null
 
@@ -193,7 +193,7 @@ class PublishActivity : AppCompatActivity() {
                     // 上传文件
                     // final.mp4
                     // 转移到DCIM目录下，并删除
-                    val dstVideo = ToolUtils.getExportVideoPath()
+                    val dstVideo = ToolUtils.exportVideoPath
 
                     val srcFile = File("$editWorkFloder/final.mp4")
                     val dstFile = File(dstVideo)
@@ -243,7 +243,7 @@ class PublishActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (fromDraft == true) {
+        if (fromDraft) {
             if (checkInfoChanged()) {
                 showSaveDialog()
             } else {

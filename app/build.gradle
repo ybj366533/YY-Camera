@@ -56,11 +56,9 @@ dependencies {
     implementation rootProject.ext.dependencies['anko']
     implementation project(':library')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation(name: 'gtvideolib-r190', ext: 'aar')
-
     //noinspection GradleCompatible
     implementation 'com.xw.repo:bubbleseekbar:3.5'
-    //compile project(':gtvideolib')
+    implementation project(':gtvideolib')
     //compile(name: 'gtvideolib-r100', ext:'aar')
     //Glide 图片加载
     implementation files('libs/glide-full-4.0.0.jar')

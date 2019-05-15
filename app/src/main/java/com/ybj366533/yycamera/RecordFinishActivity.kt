@@ -18,8 +18,8 @@ import com.gtv.cloud.editor.GTVComposerCreator
 import com.gtv.cloud.editor.GTVExtractFrameInfo
 import com.gtv.cloud.editor.IGTVVideoComposer
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.utils.ToolUtils
 import com.gtv.cloud.utils.GTVVideoUtils
+import com.ybj366533.yycamera.utils.ToolUtils
 
 import java.io.File
 import java.util.ArrayList
@@ -70,7 +70,7 @@ class RecordFinishActivity : AppCompatActivity() {
         btnDraft = findViewById<View>(R.id.btn_draft) as Button
         btnDraft!!.setOnClickListener {
             // 把现在的目录 移动到  草稿箱
-            if (startFromDraft == false) {
+            if (!startFromDraft) {
                 val recWorkFolder = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/SV_rec_folder"
                 val draftWorkFolder = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/draft/1"    //uuid?
 
@@ -92,7 +92,7 @@ class RecordFinishActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (startFromDraft == true) {
+        if (startFromDraft) {
             val draftWorkFolder = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/draft/1"
 
             val intent = Intent(this@RecordFinishActivity, GTVVideoEditActivity::class.java)
@@ -119,27 +119,27 @@ class RecordFinishActivity : AppCompatActivity() {
         val videoPath = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/SV_rec_folder/gtv.mp4"
         val editWorkFolder = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/SV_rec_folder/"
         val finalVideoPath = ToolUtils.getExternalFilesPath(this@RecordFinishActivity) + "/SV_rec_folder/final.mp4"
-        val editCallback = object : EditCallback() {
-            fun onInitReady() {
+        val editCallback = object : EditCallback {
+            override fun onInitReady() {
 
             }
 
-            fun onPlayComplete() {
+            override fun onPlayComplete() {
 
             }
 
-            fun onError(errorCode: Int) {
+            override fun onError(errorCode: Int) {
 
             }
 
-            fun onProgress(progress: Int) {
+            override fun onProgress(progress: Int) {
                 //LogUtils.LOGI("AAAAAAAAA", " " +progress);
                 if (dialog != null) {
                     dialog!!.progress = progress
                 }
             }
 
-            fun onComposeFinish(reason: Int) {
+            override fun onComposeFinish(reason: Int) {
                 dialog!!.dismiss()
                 dialog = null
                 //isCompsing = false;
@@ -168,7 +168,7 @@ class RecordFinishActivity : AppCompatActivity() {
                     // final.mp4
                     // 转移到DCIM目录下，并删除
                     //String srcVideo = ToolUtils.getExternalFilesPath(RecordFinishActivity.this) + "/SV_rec_folder/final.mp4";
-                    val dstVideo = ToolUtils.getExportVideoPath()
+                    val dstVideo = ToolUtils.exportVideoPath
 
                     val srcFile = File(srcVideo)
                     val dstFile = File(dstVideo)

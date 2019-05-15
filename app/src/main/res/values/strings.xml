@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GT短视频</string>
+    <string name="app_name">YY-Camera</string>
     <string name="title_activity_stream">StreamActivity</string>
     <string name="title_activity_fumai">FumaiActivity</string>
     <string name="record_sticker">贴纸</string>
