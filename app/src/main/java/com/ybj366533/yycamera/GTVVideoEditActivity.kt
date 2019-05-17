@@ -422,7 +422,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onBackPressed() {
-        if (fromDraft == true) {
+        if (fromDraft) {
             // 如果是从草稿箱打开
             if (checkVideoInfoChanged()) {
                 showSaveDialog()
