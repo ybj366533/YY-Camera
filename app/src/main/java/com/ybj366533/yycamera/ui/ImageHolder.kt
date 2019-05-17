@@ -12,11 +12,10 @@ import com.ybj366533.yycamera.R
 
 class ImageHolder(itemView: View, clickListener: View.OnClickListener) : RecyclerView.ViewHolder(itemView) {
 
-    var effect: ImageView
+    var effect: ImageView = itemView.findViewById(R.id.mImage) as ImageView
     var textView: TextView
 
     init {
-        effect = itemView.findViewById(R.id.mImage) as ImageView
         effect.setOnClickListener(clickListener)
         textView = itemView.findViewById(R.id.mText) as TextView
     }

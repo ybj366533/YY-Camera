@@ -9,8 +9,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.R
 
 class RecordTimelineView : View {
     private var maxDuration: Int = 0

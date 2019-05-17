@@ -237,17 +237,17 @@ object ToolUtils {
         return 0
     }
 
-    fun getDirsFilesPath(dirUrl: String): Array<Array<String>>? {
+    fun getDirsFilesPath(dirUrl: String): Array<Array<String?>>? {
         val dir = File(dirUrl)
-        if (dir != null && dir.isDirectory) {
+        if (dir.isDirectory) {
             val files = dir.listFiles()
             if (files != null && files.size != 0) {
-                val filePath = Array<Array<String>>(files.size) { arrayOfNulls(2) }
+                val filePath = Array<Array<String?>>(files.size) { arrayOfNulls(2) }
                 for (i in files.indices) {
                     val f = files[i]
                     if (f.isDirectory) {
                         filePath[i][0] = f.absolutePath
-                        filePath[i][1] = getLastLevelFloder(filePath[i][0])
+                        filePath[i][1] = getLastLevelFloder(filePath[i][0]!!)
 
                     }
                 }
@@ -257,7 +257,7 @@ object ToolUtils {
         return null
     }
 
-    fun getLastLevelFloder(path: String): String {
+    private fun getLastLevelFloder(path: String): String {
         return path.substring(path.lastIndexOf(File.separator), path.length)
     }
 

@@ -66,7 +66,7 @@ class AssetsHandler {
                     }
                 }
 
-                return _instance
+                return _instance!!
             }
     }
 }

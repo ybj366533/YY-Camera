@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.R
 
 //import com.aiyaapp.aiya.util.ClickUtils;
 

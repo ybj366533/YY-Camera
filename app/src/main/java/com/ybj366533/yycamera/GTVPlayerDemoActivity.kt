@@ -50,14 +50,14 @@ class GTVPlayerDemoActivity : AppCompatActivity() {
 
             player!!.setSurface(holder.surface)
             player!!.setLogLevel(0)
-            player!!.setPlayerLogOutput(object : GTVideoPlayer.IGTVideoPlayerLogOutput() {
-                fun onLogOutput(logMsg: String) {
+            player!!.setPlayerLogOutput(object : GTVideoPlayer.IGTVideoPlayerLogOutput {
+                override fun onLogOutput(logMsg: String) {
                     Log.e("GTV", logMsg)
                 }
             })
 
-            player!!.setPlayerEventLisenter(object : GTVideoPlayer.IGTVideoPlayerListener() {
-                fun onPrepared(p: GTVideoPlayer) {
+            player!!.setPlayerEventLisenter(object : GTVideoPlayer.IGTVideoPlayerListener {
+                override fun onPrepared(p: GTVideoPlayer) {
                     //------------------------------------------
                     Log.e("app", "prepared")
 
@@ -73,7 +73,7 @@ class GTVPlayerDemoActivity : AppCompatActivity() {
                     t.start()
                 }
 
-                fun onCompletion(p: GTVideoPlayer, errorCode: Int) {
+                override fun onCompletion(p: GTVideoPlayer, errorCode: Int) {
                     Log.e("app", "completion")
 
                     if (audioTrack != null) {
@@ -88,7 +88,7 @@ class GTVPlayerDemoActivity : AppCompatActivity() {
 
         protected fun loopAudio() {
 
-            while (running_flag == true) {
+            while (running_flag) {
                 val len = player!!.pullAudioData(audio_buffer)
                 if (len > 0)
                     audioTrack!!.write(audio_buffer, 0, len)

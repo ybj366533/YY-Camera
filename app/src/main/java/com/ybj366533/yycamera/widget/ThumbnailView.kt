@@ -10,8 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.R
 
 /**
  * Created by zhaoshuang on 17/8/22.

@@ -8,9 +8,8 @@ import android.util.SparseIntArray
 import android.view.View
 import android.widget.RadioGroup
 import android.widget.ViewAnimator
-
-import com.gtv.cloud.gtvideo.GTVVideoRecordSTActivity
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.GTVVideoRecordSTActivity
+import com.ybj366533.yycamera.R
 
 
 /**

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.gtv.cloud.utils.GTVMusicHandler
 
 import com.ybj366533.yycamera.R
 

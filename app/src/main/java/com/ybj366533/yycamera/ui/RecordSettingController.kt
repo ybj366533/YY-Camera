@@ -19,7 +19,7 @@ import com.ybj366533.yycamera.R
  * Created by aiya on 2017/7/27.
  */
 
-class RecordSettingController(act: GTVVideoRecordStreamActivity, val contentView: View, listener: StickerRecylerAdapter.OnStickerCheckListener, filterListener: FilterRecyclerAdapter.OnFilterCheckListener) : SelectListener {
+class RecordSettingController(act: GTVVideoRecordStreamActivity, private val contentView: View, listener: StickerRecylerAdapter.OnStickerCheckListener, filterListener: FilterRecyclerAdapter.OnFilterCheckListener) : SelectListener {
     private val mEffectList: RecyclerView
     private val mFilterList: RecyclerView
 
@@ -72,7 +72,7 @@ class RecordSettingController(act: GTVVideoRecordStreamActivity, val contentView
         // tod $ ?
         mFilterList = `$`(R.id.mFilterList)
         mFilterList.layoutManager = GridLayoutManager(act.applicationContext, 4)
-        mFilterList.setAdapter(filterRecyclerAdapter = FilterRecyclerAdapter(act))
+        mFilterList.setAdapter(filterR ecyclerAdapter = FilterRecyclerAdapter(act))
         filterRecyclerAdapter!!.setFilterCheckListener(filterListener)
 
 

@@ -13,8 +13,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.R
 
 import java.util.ArrayList
 
@@ -162,7 +161,7 @@ class RecordedButton : View {
         val rX = x
         val rY = y
 
-        val va = ValueAnimator.ofFloat(0, 1).setDuration(50)
+        val va = ValueAnimator.ofFloat(0.0f, 1.0f).setDuration(50)
         va.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             x = rX + slideX * value
@@ -183,7 +182,7 @@ class RecordedButton : View {
 
     private fun jitterAnim(slide: Float, isX: Boolean) {
 
-        val va = ValueAnimator.ofFloat(slide, 0).setDuration(100)
+        val va = ValueAnimator.ofFloat(slide, 0.0f).setDuration(100)
         va.addUpdateListener { animation ->
             var value = animation.animatedValue as Float
             if (flag) {

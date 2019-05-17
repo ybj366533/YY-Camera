@@ -18,9 +18,8 @@ import android.widget.TextView
 
 import com.gtv.cloud.editor.GTVideoEffectInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.R
-import com.gtv.cloud.gtvideo.utils.ToolUtils
-import com.gtv.cloud.gtvideo.widget.RecordedLayout
+import com.ybj366533.yycamera.R
+import com.ybj366533.yycamera.widget.RecordedLayout
 
 import java.lang.ref.WeakReference
 import java.util.ArrayList
@@ -166,22 +165,21 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
 
         myHandler = MyHandler(this)
 
-        mRecordedLayout!!.setOnGestureListener(object : RecordedLayout.OnGestureListener() {
+        mRecordedLayout!!.setOnGestureListener(object : RecordedLayout.OnGestureListener {
+            override fun onStop(endType: GTVideoEffectInfo) {
+                mEditor!!.stopVideoEffect(endType.getEffectType())
+                //updateSeekTo(mEditor.getDuration());
+                mRecordedLayout!!.setEffectInfoList(mEditor!!.getVideoEffectList(), false)
+            }
 
-            fun onClick(mCursor: Float) {
-                val progress = (mEditor!!.getDuration() * mCursor) as Int
+            override fun onClick(mCursor: Float) {
+                val progress = (mEditor!!.duration * mCursor).toInt()
                 Log.e("updateSeekTo", "updateSeekTo：$progress")
                 updateSeekTo(progress)
             }
 
-            fun onEnd() {
+            override fun onEnd() {
                 //updateSeekTo(0);
-            }
-
-            fun onStop(endType: GTVideoEffectInfo) {
-                mEditor!!.stopVideoEffect(endType.getEffectType())
-                //updateSeekTo(mEditor.getDuration());
-                mRecordedLayout!!.setEffectInfoList(mEditor!!.getVideoEffectList(), false)
             }
 
         })

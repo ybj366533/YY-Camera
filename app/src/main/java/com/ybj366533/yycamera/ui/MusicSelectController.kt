@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import com.gtv.cloud.utils.GTVMusicHandler
 
 import com.ybj366533.yycamera.R
 
@@ -14,7 +15,7 @@ import com.ybj366533.yycamera.R
  * Created by gtv on 2017/7/27.
  */
 
-class MusicSelectController(act: Activity, val contentView: View) {
+class MusicSelectController(act: Activity, private val contentView: View) {
 
     private val mMusicSelectList: RecyclerView
 

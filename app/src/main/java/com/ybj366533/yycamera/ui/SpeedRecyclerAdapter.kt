@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import com.gtv.cloud.gtvideo.R
+import com.ybj366533.yycamera.R
 
 //import com.aiyaapp.aiya.util.ClickUtils;
 

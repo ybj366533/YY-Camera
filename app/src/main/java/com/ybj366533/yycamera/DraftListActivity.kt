@@ -10,11 +10,11 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
+import com.ybj366533.yycamera.ui.DraftItemInfo
+import com.ybj366533.yycamera.ui.DraftRecyclerAdapter
+import com.ybj366533.yycamera.utils.FileUtils
+import com.ybj366533.yycamera.utils.ToolUtils
 
-import com.gtv.cloud.gtvideo.ui.DraftItemInfo
-import com.gtv.cloud.gtvideo.ui.DraftRecyclerAdapter
-import com.gtv.cloud.gtvideo.utils.FileUtils
-import com.gtv.cloud.gtvideo.utils.ToolUtils
 
 import java.io.File
 import java.util.ArrayList

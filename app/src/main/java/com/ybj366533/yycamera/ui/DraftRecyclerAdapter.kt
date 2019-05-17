@@ -9,10 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
-import com.gtv.cloud.gtvideo.Constants
-import com.gtv.cloud.gtvideo.R
-import com.gtv.cloud.gtvideo.RecordFinishActivity
+import com.ybj366533.yycamera.Constants
+import com.ybj366533.yycamera.R
+import com.ybj366533.yycamera.RecordFinishActivity
 
 import java.util.ArrayList
 
@@ -46,7 +45,7 @@ class DraftRecyclerAdapter(private val context: Context, private val datas: Arra
         return datas?.size ?: 0
     }
 
-    internal inner class ImageItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ImageItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var iv: ImageView
         var tv: TextView

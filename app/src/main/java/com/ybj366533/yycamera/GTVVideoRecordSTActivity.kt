@@ -40,10 +40,10 @@ class GTVVideoRecordSTActivity : AppCompatActivity(), View.OnTouchListener, View
     private var glSurfaceView: CameraGLSurfaceViewST? = null
     private var eglContext: EGLContext? = null
 
-    internal var mNextBtn: TextView
-    internal var btnCancel: ImageView
-    internal var btnRecordStart: TextView
-    internal var btnRecordDeleteLast: ImageView
+    private lateinit var mNextBtn: TextView
+    private lateinit var btnCancel: ImageView
+    private lateinit var btnRecordStart: TextView
+    private lateinit var btnRecordDeleteLast: ImageView
 
     private var mSwitchBtn: ImageView? = null
     private var mLightBtn: ImageView? = null
@@ -151,17 +151,17 @@ class GTVVideoRecordSTActivity : AppCompatActivity(), View.OnTouchListener, View
         initView()
         initGTVSDK()
 
-        glSurfaceView!!.setTexutreListener(object : CameraGLSurfaceViewST.OnTextureListener() {
-            fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
-                if (mRecorder != null) {
+        glSurfaceView!!.setTexutreListener(object : CameraGLSurfaceViewST.OnTextureListener{
+            override fun onTextureAvailable(textureId: Int, textureWidth: Int, textureHeight: Int, timestampNanos: Long): Int {
+                return if (mRecorder != null) {
                     if (eglContext == null) {
                         eglContext = glSurfaceView!!.currentContext
                         // 在调用播放动画 startAnimation之前，需要设置EGLContext
                         mRecorder!!.setEGLContext(eglContext, textureWidth, textureHeight)
                     }
-                    return mRecorder!!.inputVideoFrame(textureId, textureWidth, textureHeight, true, timestampNanos)
+                    mRecorder!!.inputVideoFrame(textureId, textureWidth, textureHeight, true, timestampNanos)
                 } else {
-                    return textureId
+                    textureId
                 }
                 //mRecorder.writeVideoFrame(textureId, textureWidth, textureHeight,false, timestampNanos);
                 //return 0;
@@ -180,12 +180,12 @@ class GTVVideoRecordSTActivity : AppCompatActivity(), View.OnTouchListener, View
         mSettingList!!.visibility = View.INVISIBLE
 
         // 说明第一次开始
-        if (firstClipRecord == true) {
+        if (firstClipRecord) {
 
             mRecorder!!.startRecord(glSurfaceView!!.currentContext)
 
             recordTimelineView!!.setMaxDuration(MAX_RECORD_DURATION)
-            recordTimelineView!!.setVisibility(View.VISIBLE)
+            recordTimelineView!!.visibility = View.VISIBLE
 
             firstClipRecord = false
 
@@ -228,7 +228,7 @@ class GTVVideoRecordSTActivity : AppCompatActivity(), View.OnTouchListener, View
 
     override fun onPause() {
         super.onPause()
-        if (recordingFlag == true) {
+        if (recordingFlag) {
             // 录制中，退到后台，需要暂停录制，不然视频文件只有声音
             pauseRecord()
         }

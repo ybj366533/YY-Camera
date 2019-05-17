@@ -570,13 +570,13 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initGTVSDK() {
         val editCallback = object : SimpleEditCallback() {
-            fun onPrepared() {
+            override fun onPrepared() {
                 mEditor!!.setDisplayMode(true)
                 mVideoDuration = mEditor!!.getDuration()
                 //LogUtils.DebugLog(TAG, "  " + mEditor.getDuration() + "    " + mEditor.getCurrentPosition());
                 if (videoEffectEditControlView != null) {
-                    videoEffectEditControlView!!.init(mEditor, object : VideoEffectEditControlView.OnFinishListener() {
-                        fun onFinish(saveFlag: Boolean): Boolean {
+                    videoEffectEditControlView!!.init(mEditor!!, object : VideoEffectEditControlView.OnFinishListener{
+                        override fun onFinish(saveFlag: Boolean): Boolean {
                             //全屏
                             val params = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
                             params.topMargin = 0
@@ -598,7 +598,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
                 runOnUiThread { mEditor!!.playStart() }
             }
 
-            fun onPlayEnd() {
+            override fun onPlayEnd() {
                 runOnUiThread {
                     // 编辑主画面时,视频裁剪页面 需要连续播放
                     // 特效编辑画面 不需要连续播放

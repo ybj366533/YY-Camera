@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gtv.cloud.utils.GTVFilterHelp
 import com.ybj366533.yycamera.R
 
 
@@ -36,7 +37,7 @@ class FilterRecyclerAdapter(//    private ArrayList<MenuBean> mMenuDatas;
     //        1,2,3,4,5, 6,7,8,9,10, 11,12,13,14,15, 16,17};
 
     // 也可以通过名字来设定
-    private val filterName: Array<String>
+    private val filterName: Array<String?>
     //    = new String[] {"Normal",
     //            "Amaro","Rise","Hudson","XproII","Sierra",
     //            "Lomofi","Earlybird", "Sutro", "Toaster","Brannan",
@@ -44,7 +45,7 @@ class FilterRecyclerAdapter(//    private ArrayList<MenuBean> mMenuDatas;
     //            "1977", "LordKelvin"};
 
     // 用于界面显示
-    private val filterTitle: Array<String>
+    private val filterTitle: Array<String?>
 
 
     private var listener: OnFilterCheckListener? = null
@@ -66,9 +67,9 @@ class FilterRecyclerAdapter(//    private ArrayList<MenuBean> mMenuDatas;
         filterTitle = arrayOfNulls(filterList.size)
 
         for (i in filterList.indices) {
-            filterType[i] = filterList.get(i).getFilterIndex()
-            filterName[i] = filterList.get(i).getFilterName()
-            filterTitle[i] = filterList.get(i).getFilterTitle()
+            filterType[i] = filterList[i].filterIndex
+            filterName[i] = filterList[i].filterName
+            filterTitle[i] = filterList[i].filterTitle
 
         }
 

@@ -4,8 +4,7 @@ import android.app.Application
 import android.graphics.drawable.Drawable
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.ResourceDecoder
-import com.gtv.cloud.gtvideo.widget.webp.WebpResourceDecoder
+import com.ybj366533.yycamera.widget.webp.WebpResourceDecoder
 
 import java.io.InputStream
 
@@ -26,3 +25,4 @@ class GTVApplication : Application() {
         //        Fresco.initialize(this);
     }
 }
+

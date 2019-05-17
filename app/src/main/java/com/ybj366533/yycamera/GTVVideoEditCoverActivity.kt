@@ -26,11 +26,9 @@ import com.gtv.cloud.editor.EditCallback
 import com.gtv.cloud.editor.GTVEditorCreator
 import com.gtv.cloud.editor.GTVExtractFrameInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
-import com.gtv.cloud.gtvideo.utils.FileUtils
-import com.gtv.cloud.gtvideo.widget.SimpleEditCallback
-import com.gtv.cloud.gtvideo.widget.ThumbnailView
 import com.gtv.cloud.utils.GTVVideoUtils
 import com.gtv.cloud.utils.LogUtils
+import com.ybj366533.yycamera.widget.ThumbnailView
 
 import java.io.File
 import java.util.ArrayList

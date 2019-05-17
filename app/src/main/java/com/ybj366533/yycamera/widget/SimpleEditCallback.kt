@@ -9,23 +9,23 @@ import com.gtv.cloud.editor.EditCallback
  */
 
 abstract class SimpleEditCallback : EditCallback {
-    fun onInitReady() {
+    override fun onInitReady() {
         onPrepared()
     }
 
-    fun onPlayComplete() {
+    override fun onPlayComplete() {
         onPlayEnd()
     }
 
-    fun onError(i: Int) {
+    override fun onError(i: Int) {
 
     }
 
-    fun onProgress(i: Int) {
+    override fun onProgress(i: Int) {
 
     }
 
-    fun onComposeFinish(i: Int) {
+    override fun onComposeFinish(i: Int) {
 
     }
 

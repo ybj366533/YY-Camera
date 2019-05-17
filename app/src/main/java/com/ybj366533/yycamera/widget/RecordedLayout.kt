@@ -9,6 +9,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.gtv.cloud.editor.GTVideoEffectInfo
 
 import com.ybj366533.yycamera.R
 
