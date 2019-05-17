@@ -4,7 +4,6 @@ import android.content.Context
 
 import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
 
 
 class AssetsHandler {
@@ -18,7 +17,7 @@ class AssetsHandler {
     fun copyFilesFassets(context: Context, oldPath: String, newPath: String, suffix: String?) {
         try {
             val fileNames = context.assets.list(oldPath)//获取assets目录下的所有文件及目录名
-            if (fileNames!!.size > 0) {
+            if (fileNames!!.isNotEmpty()) {
                 //如果是目录
                 val file = File(newPath)
                 file.mkdirs()//如果文件夹不存在，则递归
@@ -53,20 +52,20 @@ class AssetsHandler {
     companion object {
 
 
-        private var _instance: AssetsHandler? = null
+        private var mInstance: AssetsHandler? = null
 
         val instance: AssetsHandler
             get() {
 
-                if (_instance == null) {
+                if (mInstance == null) {
                     synchronized(AssetsHandler::class.java) {
-                        if (_instance == null) {
-                            _instance = AssetsHandler()
+                        if (mInstance == null) {
+                            mInstance = AssetsHandler()
                         }
                     }
                 }
 
-                return _instance
+                return mInstance!!
             }
     }
 }
