@@ -1,7 +1,7 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-GTVIDEO_ROOT=$(LOCAL_PATH)/../../../../../../../
+GTVIDEO_ROOT=$(LOCAL_PATH)/
 GTVIDEO_WEBP_ROOT=$(LOCAL_PATH)/../webp
 GTVIDEO_FFMPEG_ROOT=$(GTVIDEO_ROOT)/ffmpeg/android
 GTVIDEO_LIBRARY_ROOT=$(GTVIDEO_ROOT)/GTVideoPlayerLib

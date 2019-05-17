@@ -1,8 +1,8 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-GTVIDEO_ROOT=$(LOCAL_PATH)/../../../../../../../
-GTVIDEO_LIBRARY_ROOT=$(GTVIDEO_ROOT)/GTSticker
+GTVIDEO_ROOT=$(LOCAL_PATH)/
+GTVIDEO_LIBRARY_ROOT=$(GTVIDEO_ROOT)/
 GTPNG_ROOT=$(LOCAL_PATH)/../png
 
 LOCAL_CPPFLAGS += -fexceptions -mfloat-abi=softfp -mfpu=neon

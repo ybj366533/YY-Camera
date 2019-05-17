@@ -66,46 +66,46 @@ set(CMAKE_DEBUG_POSTFIX "d")
 # TODO: fix this by building with awk; without this no cmake build can be
 # configured directly (to do so indirectly use your local awk to build a
 # pnglibconf.h in the build directory.)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt
+configure_file(scripts/pnglibconf.h.prebuilt
                ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # OUR SOURCES
 set(libpng_public_hdrs
-  png.h
-  pngconf.h
+        png.h
+        pngconf.h
   ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h
 )
 set(libpng_sources
   ${libpng_public_hdrs}
-  pngdebug.h
-  pnginfo.h
-  pngpriv.h
-  pngstruct.h
-  png.c
-  pngerror.c
-  pngget.c
-  pngmem.c
-  pngpread.c
-  pngread.c
-  pngrio.c
-  pngrtran.c
-  pngrutil.c
-  pngset.c
-  pngtrans.c
-  pngwio.c
-  pngwrite.c
-  pngwtran.c
-  pngwutil.c
+        pngdebug.h
+        pnginfo.h
+        pngpriv.h
+        pngstruct.h
+        png.c
+        pngerror.c
+        pngget.c
+        pngmem.c
+        pngpread.c
+        pngread.c
+        pngrio.c
+        pngrtran.c
+        pngrutil.c
+        pngset.c
+        pngtrans.c
+        pngwio.c
+        pngwrite.c
+        pngwtran.c
+        pngwutil.c
 )
 set(pngtest_sources
-  pngtest.c
+        pngtest.c
 )
 set(pngvalid_sources
-  contrib/libtests/pngvalid.c
+        contrib/libtests/pngvalid.c
 )
 set(pngstest_sources
-  contrib/libtests/pngstest.c
+        contrib/libtests/pngstest.c
 )
 # SOME NEEDED DEFINITIONS
 
@@ -118,7 +118,7 @@ if(PNG_DEBUG)
 endif()
 
 # NOW BUILD OUR TARGET
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${ZLIB_INCLUDE_DIR})
+include_directories(. ${ZLIB_INCLUDE_DIR})
 
 unset(PNG_LIB_TARGETS)
 
@@ -159,7 +159,7 @@ if(PNG_TESTS AND PNG_SHARED)
   # does not work with msvc due to png_lib_ver issue
   add_executable(pngtest ${pngtest_sources})
   target_link_libraries(pngtest ${PNG_LIB_NAME})
-  add_test(pngtest ./pngtest ${CMAKE_CURRENT_SOURCE_DIR}/pngtest.png)
+  add_test(pngtest ./pngtest pngtest.png)
   #
   add_executable(pngvalid ${pngvalid_sources})
   target_link_libraries(pngvalid ${PNG_LIB_NAME})
@@ -167,36 +167,36 @@ if(PNG_TESTS AND PNG_SHARED)
   add_executable(pngstest ${pngstest_sources})
   target_link_libraries(pngstest ${PNG_LIB_NAME})
   add_test(pngstest ./pngstest
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g01.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g02.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g04.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn0g16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn2c08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn2c16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn3p01.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn3p02.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn3p04.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn4a08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn4a16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn6a08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/basn6a16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbbn0g01.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbbn0g02.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbbn0g04.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbbn2c16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbbn3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbgn2c16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbgn3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbrn2c08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbwn0g16.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbwn3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftbyn3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftp0n0g08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftp0n2c08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftp0n3p08.png
-    ${CMAKE_CURRENT_SOURCE_DIR}/contrib/pngsuite/ftp1n3p08.png
+          contrib/pngsuite/basn0g01.png
+          contrib/pngsuite/basn0g02.png
+          contrib/pngsuite/basn0g04.png
+          contrib/pngsuite/basn0g08.png
+          contrib/pngsuite/basn0g16.png
+          contrib/pngsuite/basn2c08.png
+          contrib/pngsuite/basn2c16.png
+          contrib/pngsuite/basn3p01.png
+          contrib/pngsuite/basn3p02.png
+          contrib/pngsuite/basn3p04.png
+          contrib/pngsuite/basn3p08.png
+          contrib/pngsuite/basn4a08.png
+          contrib/pngsuite/basn4a16.png
+          contrib/pngsuite/basn6a08.png
+          contrib/pngsuite/basn6a16.png
+          contrib/pngsuite/ftbbn0g01.png
+          contrib/pngsuite/ftbbn0g02.png
+          contrib/pngsuite/ftbbn0g04.png
+          contrib/pngsuite/ftbbn2c16.png
+          contrib/pngsuite/ftbbn3p08.png
+          contrib/pngsuite/ftbgn2c16.png
+          contrib/pngsuite/ftbgn3p08.png
+          contrib/pngsuite/ftbrn2c08.png
+          contrib/pngsuite/ftbwn0g16.png
+          contrib/pngsuite/ftbwn3p08.png
+          contrib/pngsuite/ftbyn3p08.png
+          contrib/pngsuite/ftp0n0g08.png
+          contrib/pngsuite/ftp0n2c08.png
+          contrib/pngsuite/ftp0n3p08.png
+          contrib/pngsuite/ftp1n3p08.png
   )
 endif()
 
@@ -241,11 +241,11 @@ if(NOT WIN32 OR CYGWIN OR MINGW)
   set(libdir      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
   set(includedir  ${CMAKE_INSTALL_PREFIX}/include)
   set(LIBS        "-lz -lm")
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libpng.pc.in
+  configure_file(libpng.pc.in
     ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}.pc @ONLY)
   CREATE_SYMLINK(${PNGLIB_NAME}.pc libpng.pc)
 
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libpng-config.in
+  configure_file(libpng-config.in
     ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}-config @ONLY)
   CREATE_SYMLINK(${PNGLIB_NAME}-config libpng-config)
 endif(NOT WIN32 OR CYGWIN OR MINGW)
@@ -330,8 +330,8 @@ if(NOT SKIP_INSTALL_FILES AND NOT SKIP_INSTALL_ALL )
   if(NOT PNG_MAN_DIR)
     set(PNG_MAN_DIR "share/man")
   endif()
-  install(FILES libpng.3 libpngpf.3      DESTINATION ${PNG_MAN_DIR}/man3)
-  install(FILES png.5                    DESTINATION ${PNG_MAN_DIR}/man5)
+  install(FILES libpng.3 libpngpf.3 DESTINATION ${PNG_MAN_DIR}/man3)
+  install(FILES png.5 DESTINATION ${PNG_MAN_DIR}/man5)
   # Install pkg-config files
   if(NOT WIN32 OR CYGWIN OR MINGW)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpng.pc

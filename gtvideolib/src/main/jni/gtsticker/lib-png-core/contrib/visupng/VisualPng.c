@@ -32,7 +32,7 @@
 /* application includes */
 
 #include "png.h"
-#include "pngfile.h"
+#include "PngFile.h"
 #include "resource.h"
 
 /* macros */
