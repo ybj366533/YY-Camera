@@ -101,7 +101,7 @@ class CameraGLSurfaceView @JvmOverloads constructor(internal var mContext: Conte
         //        surfaceTexture.getTransformMatrix(mtx);
         //        mDirectDrawer.draw(mtx);
 
-        for (i in 0 until grpFilter!!.getFilterCount()) {
+        for (i in 0 until grpFilter!!.filterCount) {
 
             val filter = grpFilter!!.getFilter(i)
             if (filter is GTVOESInputFilter) {

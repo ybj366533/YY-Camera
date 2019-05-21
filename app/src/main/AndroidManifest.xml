@@ -27,7 +27,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name=".GTVApplication"
         android:allowBackup="true"
         android:icon="@mipmap/sv_launcher"
         android:label="@string/app_name"
@@ -47,22 +46,10 @@
             android:name=".RecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RecordSTActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GTVVideoRecordSTActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GTVPlayerDemoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".GTVVideoRecordStreamActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GTVVideoEditActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GTVVideoEditCoverActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PublishActivity"

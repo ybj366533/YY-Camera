@@ -2,7 +2,8 @@ package com.gtv.cloud.editor;
 
 
 public class GTVExtractFrameInfo {
-    String filePath;
+    private String filePath;
+    private int timeStampMili;
 
     public GTVExtractFrameInfo(String filePath, int timeStampMili) {
         this.filePath = filePath;
@@ -17,5 +18,5 @@ public class GTVExtractFrameInfo {
         return timeStampMili;
     }
 
-    int timeStampMili;
+
 }

@@ -5,9 +5,9 @@
     android:id="@+id/activity_simple_stream"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gtv.cloud.gtvideo.GTVVideoRecordStreamActivity">
+    tools:context=".GTVVideoRecordStreamActivity">
 
-<com.gtv.cloud.gtvideo.widget.CameraGLSurfaceView
+<com.ybj366533.yycamera.widget.CameraGLSurfaceView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mixView"
@@ -72,7 +72,7 @@
                 android:text="下一步" />
         </LinearLayout>
     </LinearLayout>
-    <com.gtv.cloud.gtvideo.ui.RecordTimelineView
+    <com.ybj366533.yycamera.ui.RecordTimelineView
         android:id="@+id/kklive_record_timeline"
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -90,7 +90,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.gtv.cloud.gtvideo.ui.FocusImageView
+        <com.ybj366533.yycamera.ui.FocusImageView
             android:id="@+id/focusImageView"
             android:layout_width="75dip"
             android:layout_height="75dip"
@@ -114,18 +114,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center_vertical">
-        -->
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,20 +123,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
             android:visibility="gone"/>
-    <!--<TextView-->
-        <!--android:id="@+id/btn_record_start"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@mipmap/btn_record_start"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:text="录制"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textSize="18sp"-->
-        <!--android:layout_marginBottom="50dp" />-->
-    <com.gtv.cloud.gtvideo.widget.RecordedButton
+
+    <com.ybj366533.yycamera.widget.RecordedButton
         android:id="@+id/btn_record_start"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -165,7 +141,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="60dp"/>
     <TextView
         android:id="@+id/btn_take_picture"
         android:layout_width="wrap_content"
@@ -182,24 +158,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"/>
 
-    <TextView
-        android:id="@+id/btn_play_animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:background="@color/kklive_color_bg_0pct"
-        android:text="播放动画"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150dp"/>
-    <!--
-    </LinearLayout>
-    -->
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -212,22 +170,24 @@
             android:layout_height="165dp"
             android:layout_alignParentBottom="true" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/textview_countdown"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:textColor="@android:color/black"
             android:background="@mipmap/record_btn_countdown"
+            android:gravity="center"
             android:text=""
-            android:visibility="gone"
+            android:textColor="@android:color/black"
             android:textSize="70dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:visibility="gone" />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/mMusicContainer"

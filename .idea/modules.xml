@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YY-Camera.iml" filepath="$PROJECT_DIR$/YY-Camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YY-Camera.iml" filepath="$PROJECT_DIR$/YY-Camera.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gtvideolib/gtvideolib.iml" filepath="$PROJECT_DIR$/gtvideolib/gtvideolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/gtvideolib/gtvideolib.iml" filepath="$PROJECT_DIR$/gtvideolib/gtvideolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

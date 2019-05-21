@@ -162,7 +162,7 @@ object ToolUtils {
     }
 
     // 格式化时间 HH:MM:SS 或者 MM:SS
-    fun stringForTime(timeMs: Long): String {
+    fun stringForTime(timeMs: Int): String {
         val totalSeconds = timeMs / 1000
 
         val seconds = totalSeconds % 60

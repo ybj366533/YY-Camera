@@ -21,7 +21,7 @@ class RecordTimelineView : View {
     private var durationColor: Int = 0
     //private int selectColor;
     //private int offsetColor;
-    private var backgroundColor: Int = 0
+    private var bgColor: Int = 0
 
     //private boolean isSelected = false;
     constructor(context: Context) : super(context) {
@@ -40,13 +40,13 @@ class RecordTimelineView : View {
         paint.isAntiAlias = true
 
         this.durationColor = resources.getColor(R.color.kklive_record_fill_progress)
-        this.backgroundColor = resources.getColor(R.color.kklive_timeline_backgound_color)
+        this.bgColor = resources.getColor(R.color.kklive_timeline_backgound_color)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        if (backgroundColor != 0) {
-            canvas.drawColor(backgroundColor)
+        if (bgColor != 0) {
+            canvas.drawColor(bgColor)
         }
 
         paint.color = durationColor

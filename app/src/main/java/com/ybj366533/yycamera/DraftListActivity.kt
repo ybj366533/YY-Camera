@@ -59,7 +59,7 @@ class DraftListActivity : AppCompatActivity() {
         val filePaths = ToolUtils.getDirsFilesPath(draftPath)
         datas = ArrayList<DraftItemInfo>()
         if (filePaths != null) {
-            for (url in filePaths!!) {
+            for (url in filePaths) {
                 datas!!.add(DraftItemInfo(url[0], url[1]))
                 Log.e("DLA", "#PATH-draft: path =" + url[0] + "  ,\nfloder=" + url[1])
             }

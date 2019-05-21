@@ -43,7 +43,7 @@ class RecordFinishActivity : AppCompatActivity() {
     //    }
 
     private var dialog: ProgressDialog? = null
-    internal var gtvVideoComposer: IGTVVideoComposer? = null
+    private var gtvVideoComposer: IGTVVideoComposer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record_finish)
@@ -54,7 +54,7 @@ class RecordFinishActivity : AppCompatActivity() {
         btnReturn = findViewById<View>(R.id.btn_return) as Button
         btnCancel = findViewById<View>(R.id.btn_cancel) as Button
 
-        if (startFromDraft == true) {
+        if (startFromDraft) {
             btnReturn!!.text = "返回编辑"
             btnCancel!!.visibility = View.VISIBLE
         }

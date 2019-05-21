@@ -27,19 +27,19 @@ class AssetsHandler {
             } else {
                 //如果是文件
                 //如果有后缀，则只copy指定后缀的数据
-                if (suffix != null && suffix.length > 0 && oldPath.contains(suffix) == false && suffix.equals("*", ignoreCase = true) == false) {
+                if (suffix != null && suffix.isNotEmpty() && !oldPath.contains(suffix) && !suffix.equals("*", ignoreCase = true)) {
                     return
                 }
 
-                val `is` = context.assets.open(oldPath)
+                val mis = context.assets.open(oldPath)
                 val fos = FileOutputStream(File(newPath))
                 val buffer = ByteArray(1024)
                 var byteCount = 0
-                while ((byteCount = `is`.read(buffer)) != -1) {//循环从输入流读取 buffer字节
+                while (( mis.read(buffer)) != -1) {//循环从输入流读取 buffer字节
                     fos.write(buffer, 0, byteCount)//将读取的输入流写入到输出流
                 }
                 fos.flush()//刷新缓冲区
-                `is`.close()
+                mis.close()
                 fos.close()
             }
         } catch (e: Exception) {

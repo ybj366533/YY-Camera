@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.gtv.cloud.utils.GTVMusicHandler
-
 import com.ybj366533.yycamera.R
 
 
@@ -28,17 +27,19 @@ class MusicSelectController(act: Activity, private val contentView: View) {
 
     init {
 
-        mMusicSelectList = `$`(R.id.music_select_list)
+        mMusicSelectList = `$`(com.ybj366533.yycamera.R.id.music_select_list)
         mMusicSelectList.layoutManager = LinearLayoutManager(act.applicationContext, LinearLayoutManager.VERTICAL, false)
         mMusicSelectList.addItemDecoration(SpaceItemDecoration(2))
         musicSelectRecyclerAdapter = MusicSelectRecyclerAdapter(act)
-        musicSelectRecyclerAdapter.setOnMusicSelectListener { pos, fileName ->
-            //act.setMusicPathFromMusicController(fileName);
-            if (listener != null) {
-                listener!!.onMusicSelected(fileName)
+        musicSelectRecyclerAdapter.setOnMusicSelectListener(object : MusicSelectRecyclerAdapter.OnMusicSelectListener {
+            override fun onMusicSelect(pos: Int, fileName: String?): Boolean {
+                //act.setMusicPathFromMusicController(fileName);
+                if (listener != null) {
+                    listener!!.onMusicSelected(fileName!!)
+                }
+                return false
             }
-            false
-        }
+        })
         mMusicSelectList.adapter = musicSelectRecyclerAdapter
 
         startRecord = `$`<Any>(R.id.music_start_record) as TextView

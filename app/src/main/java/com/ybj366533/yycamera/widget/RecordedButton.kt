@@ -25,7 +25,7 @@ class RecordedButton : View {
     /**
      * 控件初始化设置
      */
-    private var measuredWidth = -1
+    private var aMeasuredWidth = -1
     private var colorGray: Int = 0
     private var colorBlue: Int = 0
     private var radius: Float = 0.toFloat()
@@ -66,7 +66,7 @@ class RecordedButton : View {
     private val firstX: Float = 0.toFloat()
     private val firstY: Float = 0.toFloat()
 
-    internal var flag: Boolean = false
+    private var flag: Boolean = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -212,7 +212,7 @@ class RecordedButton : View {
             buttonAnim!!.addUpdateListener { animation ->
                 var value = animation.animatedValue as Float
 
-                radius = measuredWidth * (zoom + value) / 2
+                radius = aMeasuredWidth * (zoom + value) / 2
 
                 if (girthPro > 0 && girthPro < 360) {
                     //隐藏开始按钮
@@ -220,10 +220,10 @@ class RecordedButton : View {
                 }
                 value = 1f - zoom - value
 
-                oval!!.left = measuredWidth * value / 2 + dp5 / 2
-                oval!!.top = measuredWidth * value / 2 + dp5 / 2
-                oval!!.right = measuredWidth * (1 - value / 2) - dp5 / 2
-                oval!!.bottom = measuredWidth * (1 - value / 2) - dp5 / 2
+                oval!!.left = aMeasuredWidth * value / 2 + dp5 / 2
+                oval!!.top = aMeasuredWidth * value / 2 + dp5 / 2
+                oval!!.right = aMeasuredWidth * (1 - value / 2) - dp5 / 2
+                oval!!.bottom = aMeasuredWidth * (1 - value / 2) - dp5 / 2
 
                 invalidate()
             }
@@ -298,20 +298,20 @@ class RecordedButton : View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        if (measuredWidth == -1) {
-            measuredWidth = getMeasuredWidth()
+        if (aMeasuredWidth == -1) {
+            aMeasuredWidth = measuredWidth
 
-            radius = measuredWidth * zoom / 2 - dp5
+            radius = aMeasuredWidth * zoom / 2 - dp5
 
-            oval!!.left = measuredWidth * 0.1f + dp5 / 2
-            oval!!.top = measuredWidth * 0.1f + dp5 / 2
-            oval!!.right = measuredWidth * (1 - 0.1f) - dp5 / 2
-            oval!!.bottom = measuredWidth * (1 - 0.1f) - dp5 / 2
+            oval!!.left = aMeasuredWidth * 0.1f + dp5 / 2
+            oval!!.top = aMeasuredWidth * 0.1f + dp5 / 2
+            oval!!.right = aMeasuredWidth * (1 - 0.1f) - dp5 / 2
+            oval!!.bottom = aMeasuredWidth * (1 - 0.1f) - dp5 / 2
 
-            rectF!!.left = (measuredWidth / 2 - dp5 * 3).toFloat()
-            rectF!!.top = (measuredWidth / 2 + dp5 * 3).toFloat()
-            rectF!!.right = (measuredWidth / 2 + dp5 * 3).toFloat()
-            rectF!!.bottom = (measuredWidth / 2 - dp5 * 3).toFloat()
+            rectF!!.left = (aMeasuredWidth / 2 - dp5 * 3).toFloat()
+            rectF!!.top = (aMeasuredWidth / 2 + dp5 * 3).toFloat()
+            rectF!!.right = (aMeasuredWidth / 2 + dp5 * 3).toFloat()
+            rectF!!.bottom = (aMeasuredWidth / 2 - dp5 * 3).toFloat()
         }
     }
 
@@ -335,12 +335,12 @@ class RecordedButton : View {
             //绘制暂停按钮
             paintProgress!!.color = colorBlue
             canvas.drawLines(floatArrayOf(// 绘制一组线 每四数字(两个点的坐标)确定一条线
-                    (measuredWidth / 2 + dp5).toFloat(), (measuredWidth / 2 + dp5 * 2).toFloat(), (measuredWidth / 2 + dp5).toFloat(), (measuredWidth / 2 - dp5 * 2).toFloat(), (measuredWidth / 2 - dp5).toFloat(), (measuredWidth / 2 + dp5 * 2).toFloat(), (measuredWidth / 2 - dp5).toFloat(), (measuredWidth / 2 - dp5 * 2).toFloat()), paintProgress!!)
+                    (aMeasuredWidth / 2 + dp5).toFloat(), (aMeasuredWidth / 2 + dp5 * 2).toFloat(), (aMeasuredWidth / 2 + dp5).toFloat(), (aMeasuredWidth / 2 - dp5 * 2).toFloat(), (aMeasuredWidth / 2 - dp5).toFloat(), (aMeasuredWidth / 2 + dp5 * 2).toFloat(), (aMeasuredWidth / 2 - dp5).toFloat(), (aMeasuredWidth / 2 - dp5 * 2).toFloat()), paintProgress!!)
 
         } else if (initStatusType == BUTTON_STATUS_RESET) {
             //绘制重拍按钮
-            canvas.drawCircle((measuredWidth / 2).toFloat(), (measuredWidth / 2).toFloat(), radius, paint!!)
-            canvas.drawText(textReset, (measuredWidth / 2 - rectText!!.width() / 2).toFloat(), (measuredWidth / 2 + dp5).toFloat(), paintText!!)
+            canvas.drawCircle((aMeasuredWidth / 2).toFloat(), (aMeasuredWidth / 2).toFloat(), radius, paint!!)
+            canvas.drawText(textReset, (aMeasuredWidth / 2 - rectText!!.width() / 2).toFloat(), (aMeasuredWidth / 2 + dp5).toFloat(), paintText!!)
         } else {
             canvas.drawRoundRect(rectF!!, dp5.toFloat(), dp5.toFloat(), paint!!)
         }

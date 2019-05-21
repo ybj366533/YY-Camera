@@ -157,24 +157,24 @@ object FileUtils {
      * @param filePath
      * @return
      */
-    fun readFileContent(filePath: String): String {
-        //将json数据变成字符串
-        val stringBuilder = StringBuilder()
-        try {
-            val jsonFile = File(filePath)
-            //通过管理器打开文件并读取
-            val bf = BufferedReader(InputStreamReader(FileInputStream(jsonFile)))
-            var line: String
-            while ((line = bf.readLine()) != null) {
-                stringBuilder.append(line)
-            }
-            bf.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        return stringBuilder.toString()
-    }
+//    fun readFileContent(filePath: String): String {
+//        //将json数据变成字符串
+//        val stringBuilder = StringBuilder()
+//        try {
+//            val jsonFile = File(filePath)
+//            //通过管理器打开文件并读取
+//            val bf = BufferedReader(InputStreamReader(FileInputStream(jsonFile)))
+//            var line: String
+//            while ((bf.readLine()) != null) {
+//                stringBuilder.append(line)
+//            }
+//            bf.close()
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//
+//        return stringBuilder.toString()
+//    }
 
 
     /**

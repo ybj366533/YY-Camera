@@ -44,12 +44,12 @@
                 android:id="@+id/btn_ok"
                 />
         </RelativeLayout>
-        <!--<com.gtv.cloud.gtvideo.widget.FramePreviewView
+        <!--<com.ybj366533.yycamerawidget.FramePreviewView
             android:layout_alignParentBottom="true"
             android:id="@+id/frame_preview_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </com.gtv.cloud.gtvideo.widget.FramePreviewView>-->
+        </com.ybj366533.yycamerawidget.FramePreviewView>-->
 
         <!--<include layout="@layout/view_frame_preview"
             android:layout_alignParentBottom="true"

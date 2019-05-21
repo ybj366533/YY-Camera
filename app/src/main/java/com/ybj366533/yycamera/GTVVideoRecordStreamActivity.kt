@@ -1,5 +1,6 @@
 package com.ybj366533.yycamera
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -7,10 +8,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.media.MediaScannerConnection
-import android.os.AsyncTask
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Environment
+import android.os.*
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -30,20 +28,21 @@ import com.gtv.cloud.recorder.RecordCallback
 import com.gtv.cloud.utils.GTVMusicHandler
 import com.gtv.cloud.utils.LogUtils
 import com.ybj366533.yycamera.ui.*
+import com.ybj366533.yycamera.widget.CameraGLSurfaceView
 import com.ybj366533.yycamera.widget.RecordedButton
 
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
-class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.OnStickerCheckListener, FilterRecyclerAdapter.OnFilterCheckListener, View.OnClickListener {
+class GTVVideoRecordStreamActivity() : AppCompatActivity(), StickerRecylerAdapter.OnStickerCheckListener, FilterRecyclerAdapter.OnFilterCheckListener, View.OnClickListener {
 
     private var glSurfaceView: CameraGLSurfaceView? = null
 
     private lateinit var mNextBtn: TextView
     private lateinit var btnCancel: ImageView
-    internal lateinit var btnRecordStart: RecordedButton
-    internal lateinit var btnRecordDeleteLast: ImageView
+    private lateinit var btnRecordStart: RecordedButton
+    private lateinit var btnRecordDeleteLast: ImageView
 
     private var mSwitchBtn: ImageView? = null
     private var mLightBtn: ImageView? = null
@@ -104,45 +103,11 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_record)
 
-        copyAssets()
-
         initView()
         initGTVSDK()
 
         msc = MediaScannerConnection(this, null)
         msc!!.connect()
-    }
-
-    private fun copyAssets() {
-        object : AsyncTask() {
-
-            protected override fun doInBackground(params: Array<Any>): Any? {
-                // todo 只能拷贝吗
-                // 启动个线程， asynctask？
-                var dest = Environment.getExternalStorageDirectory().toString() + "/VideoRecorderTest/music"
-                var file = File(dest)
-                if (!file.exists()) {
-                    file.mkdir()
-                }
-                val s = System.currentTimeMillis()
-                AssetsHandler.instance.copyFilesFassets(this@GTVVideoRecordStreamActivity, "music", dest, ".mp3")
-
-                dest = Environment.getExternalStorageDirectory().toString() + "/VideoRecorderTest/cover"
-                file = File(dest)
-                if (!file.exists()) {
-                    file.mkdir()
-                }
-
-                AssetsHandler.instance.copyFilesFassets(this@GTVVideoRecordStreamActivity, "cover", dest, ".png")
-
-                Log.e(TAG, "copyFilesFassets cost " + (System.currentTimeMillis() - s))
-                return null
-            }
-
-            protected override fun onPostExecute(o: Any) {
-                //                resCopy.setVisibility(View.GONE);
-            }
-        }.execute()
     }
 
 
@@ -153,12 +118,12 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         mSettingList!!.visibility = View.INVISIBLE
 
         // 说明第一次开始
-        if (firstClipRecord == true) {
+        if (firstClipRecord) {
 
             mRecorder!!.startRecord()
 
             recordTimelineView!!.setMaxDuration(MAX_RECORD_DURATION)
-            recordTimelineView!!.setVisibility(View.VISIBLE)
+            recordTimelineView!!.visibility = View.VISIBLE
 
             btnRecordStart.setMax(MAX_RECORD_DURATION)
             firstClipRecord = false
@@ -174,7 +139,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
         // 可能在录制状态（录制中达到最大录制时间） 或者 非录制状态（录制好 手动下一步）进入这个函数
 
         //如果已经停止了,防止多次触发
-        if (stopingFlag == true) {
+        if (stopingFlag) {
             return
         }
         stopingFlag = true
@@ -199,7 +164,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
     override fun onPause() {
         super.onPause()
-        if (recordingFlag == true) {
+        if (recordingFlag) {
             // 录制中，退到后台，需要暂停录制，不然视频文件只有声音
             pauseRecord()
         }
@@ -219,7 +184,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
     }
 
 
-    fun setMagicFilterType(filterType: Int) {
+    private fun setMagicFilterType(filterType: Int) {
         if (mRecorder != null) {
             mRecorder!!.setFilter(filterType)
             //根据需要，还可以通过滤镜名字来设定
@@ -250,11 +215,11 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
         // music
         mMusicSelectContainer = findViewById(R.id.mMusicContainer)
-        musicSelectController = MusicSelectController(this, mMusicSelectContainer)
+        musicSelectController = MusicSelectController(this, mMusicSelectContainer!!)
 
     }
 
-    override fun onStickerChecked(pos: Int, path: String): Boolean {
+    override fun onStickerChecked(pos: Int, path: String?): Boolean {
 
         mRecorder!!.setStickerPath(path)
 
@@ -301,7 +266,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
             textView.visibility = View.GONE
             this@GTVVideoRecordStreamActivity.startRecord()
             //btnRecordStart.setText("暂停");
-            btnRecordStart.setVisibility(View.VISIBLE)
+            btnRecordStart.visibility = View.VISIBLE
         }
 
         /**
@@ -526,24 +491,24 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
         glSurfaceView = findViewById<View>(R.id.mixView) as CameraGLSurfaceView
         //glSurfaceView.setOnTouchListener(this);
-        glSurfaceView!!.setOnCameraGLViewListener(object : CameraGLSurfaceView.OnCameraGLViewListener() {
-            fun onLongClick() {
+        glSurfaceView!!.setOnCameraGLViewListener(object : CameraGLSurfaceView.OnCameraGLViewListener {
+            override fun onLongClick() {
 
             }
 
-            fun onClick(downX: Float, downY: Float) {
+            override fun onClick(downX: Float, downY: Float) {
                 if (recordSettingContainer!!.visibility == View.VISIBLE) {
                     recordSettingContainer!!.visibility = View.INVISIBLE
-                    btnRecordStart.setVisibility(View.VISIBLE)
+                    btnRecordStart.visibility = View.VISIBLE
                 }
                 // 后置摄像头才对焦
                 if (mRecorder!!.currentCameraId() === 0) {
-                    mRecorder!!.setFocus(downX, downY, object : IGTVVideoRecorder.OnFocusListener() {
-                        fun onFocusSucess() {
+                    mRecorder!!.setFocus(downX, downY, object : IGTVVideoRecorder.OnFocusListener {
+                        override fun onFocusSucess() {
                             focusImageView!!.onFocusSuccess()
                         }
 
-                        fun onFocusFail() {
+                        override fun onFocusFail() {
                             focusImageView!!.onFocusFailed()
                         }
                     })
@@ -560,21 +525,21 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
     private fun initGTVSDK() {
 
-        val recordCallback = object : RecordCallback() {
+        val recordCallback = object : RecordCallback {
 
-            fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
+            override fun onPrepared(gtvVideoInfo: GTVVideoInfo) {
 
                 // 可以获取上次拍摄的录像，根据需要选择是否继续，还是重新开始
                 // 也可以在进入 录制预览画面之前，对app端负责管理的文件夹内容进行判断，提醒用户是否有拍摄需要继续
 
-                if (gtvVideoInfo.getCount() > 0 && fromDraft == false) {  // 如果是从草稿箱开始就不提示了
+                if (gtvVideoInfo.count > 0 && !fromDraft) {  // 如果是从草稿箱开始就不提示了
                     val mAlertDialog = AlertDialog.Builder(this@GTVVideoRecordStreamActivity)
                             //.setTitle("取消拍摄")
                             .setMessage("你有未编辑完成的视频，是否继续？")
                             .setPositiveButton("确定") { dialog, which ->
                                 runOnUiThread {
                                     mMusicSelectContainer!!.visibility = View.INVISIBLE
-                                    updateProgress(gtvVideoInfo.getTotalDuration(), MAX_RECORD_DURATION.toFloat())
+                                    updateProgress(gtvVideoInfo.totalDuration.toFloat(), MAX_RECORD_DURATION.toFloat())
                                 }
                             }
                             .setNegativeButton("取消") { dialog, which -> mRecorder!!.deleteAllVideoClips() }
@@ -588,26 +553,26 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
                 mRecorder!!.setMusicPath(musicPath, musicStartTime)
                 //mRecorder.setVideoSize(576, 1024);
                 mRecorder!!.setVideoSize(544, 960)
-                mRecorder!!.setRecordSpeed(IGTVVideoRecorder.SpeedType.STANDARD)
-                mRecorder!!.setMaxDuration(MAX_RECORD_DURATION)
+                mRecorder!!.recordSpeed = IGTVVideoRecorder.SpeedType.STANDARD
+                mRecorder!!.maxDuration = MAX_RECORD_DURATION
 
                 runOnUiThread {
                     //LogUtils.LOGI("BBBBBBBB", " " + gtvVideoInfo.getTotalDuration());
                     recordTimelineView!!.setMaxDuration(MAX_RECORD_DURATION)
-                    recordTimelineView!!.setVisibility(View.VISIBLE)
-                    updateProgress(gtvVideoInfo.getTotalDuration(), MAX_RECORD_DURATION.toFloat())
+                    recordTimelineView!!.visibility = View.VISIBLE
+                    updateProgress(gtvVideoInfo.totalDuration.toFloat(), MAX_RECORD_DURATION.toFloat())
                 }
 
 
             }
 
             // 一个片段录制结束
-            fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
+            override fun onRecordComplete(validClip: Boolean, clipDuration: Long) {
 
                 LogUtils.LOGI("app", "onRecordComplete")
 
                 // 要停止拍摄（已经录完最后一个片段）， 进行文件导出
-                if (stopingFlag == true) {
+                if (stopingFlag) {
 
                     runOnUiThread {
                         // 导出两个文件  拍摄的正常序 以及 倒序
@@ -636,14 +601,14 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
             }
 
 
-            fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
+            override fun onProgress(duration: Long, gtvVideoInfo: GTVVideoInfo) {
 
                 Log.e("GTVRecordStream", "#record progress duration = $duration")
                 runOnUiThread { updateProgress(duration.toFloat(), MAX_RECORD_DURATION.toFloat()) }
             }
 
 
-            fun onMaxDuration() {
+            override fun onMaxDuration() {
                 LogUtils.LOGI("app", "onMaxDuration ")
                 // 可以停止拍摄了
                 runOnUiThread {
@@ -655,13 +620,13 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
             }
 
             // 导出结束，得到完整的录像文件，可根据需要进入编辑页面
-            fun onExportComplete(ok: Boolean) {
+            override fun onExportComplete(ok: Boolean) {
                 LogUtils.LOGI("app", "onExportComplete $ok")
 
                 runOnUiThread {
                     dialog!!.dismiss()
                     dialog = null
-                    if (ok == true) {
+                    if (ok) {
 
                         scanFile()
 
@@ -689,11 +654,11 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
             }
 
-            fun onError(errorCode: Int) {
+            override fun onError(errorCode: Int) {
 
             }
 
-            fun onCameraOpenFailed() {
+            override fun onCameraOpenFailed() {
                 runOnUiThread {
                     // 弹窗
                     Toast.makeText(this@GTVVideoRecordStreamActivity, "请检查摄像头权限。", Toast.LENGTH_SHORT).show()
@@ -734,13 +699,13 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
     fun setThinFace(value: Int) {
         if (mRecorder != null) {
-            mRecorder!!.setThinFace(value)
+            mRecorder!!.thinFace = value
         }
     }
 
     fun setBigEye(value: Int) {
         if (mRecorder != null) {
-            mRecorder!!.setBigEye(value)
+            mRecorder!!.bigEye = value
         }
     }
 
@@ -752,6 +717,7 @@ class GTVVideoRecordStreamActivity : AppCompatActivity(), StickerRecylerAdapter.
 
         private val MAX_RECORD_DURATION = 15 * 1000
     }
+
 
 
 }

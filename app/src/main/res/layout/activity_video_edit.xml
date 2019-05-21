@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#000000"
-    tools:context="com.gtv.cloud.gtvideo.GTVVideoEditActivity">
+    tools:context=".GTVVideoEditActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -210,7 +210,7 @@
 
     </RelativeLayout>
 
-    <com.gtv.cloud.gtvideo.ui.VideoEffectEditControlView
+    <com.ybj366533.yycamera.ui.VideoEffectEditControlView
         android:id="@+id/videoEffectEditControlView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -3,12 +3,9 @@ package com.ybj366533.yycamera
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.database.Cursor
 import android.media.MediaScannerConnection
-import android.net.Uri
 import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.os.Environment
@@ -21,14 +18,12 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.gtv.cloud.editor.EditCallback
 import com.gtv.cloud.editor.GTVEditorCreator
 import com.gtv.cloud.editor.GTVExtractFrameInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
@@ -51,9 +46,9 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
     private var glSurfaceView: GLSurfaceView? = null
 
-    private var btn_save: Button? = null
-    private var btn_cover_setting: TextView? = null
-    private var btn_slowmotion: TextView? = null
+    private var btnSave: Button? = null
+    private var btnCoverSetting: TextView? = null
+    private var btnSlowmotion: TextView? = null
     private var videoCutView: VideoCutView? = null
     private var videoCutTopLayout: View? = null//视频裁剪头titlebar
     private var videoSeekBar: SeekBar? = null
@@ -61,10 +56,10 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
     private var videoIntervalEnd: Int = 0//视频seekbar播放区间
 
     private var mSlowMotionSeekBar: SeekBar? = null
-    private var slow_setting_layout: View? = null
-    private var slowmotion_flag = false
+    private var slowSettingLayout: View? = null
+    private var slowmotionFlag = false
 
-    private var btn_effect_setting: TextView? = null        // 特效设定，弹出特效设定画面
+    private var btnEffectSetting: TextView? = null        // 特效设定，弹出特效设定画面
     private var isEffectEdit: Boolean = false//当前是否是特效编辑
 
     private var viewEditLayout: View? = null               // 编辑主设定画面（特效编辑以外的画面）
@@ -74,9 +69,9 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
     private var mAudioCutStartTime: TextView? = null//音频裁剪开始时间
     private var btnBack: TextView? = null
 
-    internal var videoPath: String? = null
-    internal var musicPath: String? = null
-    internal var outputPath: String? = null
+    private var videoPath: String? = null
+    private var musicPath: String? = null
+    private var outputPath: String? = null
 
     private var msc: MediaScannerConnection? = null
 
@@ -96,7 +91,6 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
     //    private IAVStreamer mixStreamer;
     private val isCompsing = false
-    private val dialog: ProgressDialog? = null
 
     private var mEditor: IGTVVideoEditor? = null
 
@@ -197,7 +191,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
         if (alertDialog == null) {
             val builder = android.app.AlertDialog.Builder(this)
             builder.setMessage("放弃当前已有更改？")
-                    .setNegativeButton("取消") { dialog, which -> dialog.dismiss() }.setPositiveButton("放弃") { dialog, which -> handleBack() }
+                    .setNegativeButton("取消") { dialog, _ -> dialog.dismiss() }.setPositiveButton("放弃") { dialog, which -> handleBack() }
             alertDialog = builder.create()
         } else {
             alertDialog!!.show()
@@ -237,20 +231,12 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
         if (id == R.id.cover_setting_btn) {
 
-            val intent = Intent(this@GTVVideoEditActivity, GTVVideoEditCoverActivity::class.java)
-            intent.putExtra(Constants.VIDEO_FILE, videoPath)
-            if (fromDraft) {
-                intent.putExtra(Constants.EDIT_WORK_FOLDER, editWorkFloder)
-                intent.putExtra(Constants.KEY_IS_FROM_DRAFT, true)
-            }
-            startActivity(intent)
-
         }
 
 
         if (id == R.id.slow_motion_btn) {
-            slowmotion_flag = !slowmotion_flag
-            slow_setting_layout!!.visibility = if (slowmotion_flag == true) View.VISIBLE else View.INVISIBLE
+            slowmotionFlag = !slowmotionFlag
+            slowSettingLayout!!.visibility = if (slowmotionFlag == true) View.VISIBLE else View.INVISIBLE
         }
 
         if (id == R.id.effect_setting_btn) {
@@ -422,7 +408,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onBackPressed() {
-        if (fromDraft) {
+        if (fromDraft == true) {
             // 如果是从草稿箱打开
             if (checkVideoInfoChanged()) {
                 showSaveDialog()
@@ -474,11 +460,11 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
 
         glSurfaceView = findViewById<View>(R.id.glSurfaceView) as GLSurfaceView
 
-        btn_save = findViewById<View>(R.id.save_btn) as Button
-        btn_save!!.setOnClickListener(this)
+        btnSave = findViewById<View>(R.id.save_btn) as Button
+        btnSave!!.setOnClickListener(this)
 
-        btn_cover_setting = findViewById<View>(R.id.cover_setting_btn) as TextView
-        btn_cover_setting!!.setOnClickListener(this)
+        btnCoverSetting = findViewById<View>(R.id.cover_setting_btn) as TextView
+        btnCoverSetting!!.setOnClickListener(this)
 
         initVideoCrop()
 
@@ -496,7 +482,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
                     mEditor!!.setSlowPlayTime(startTime, startTime + 1000)
 
                     val textSlowMotionStarTime = findViewById<View>(R.id.text_slowmotion_total_time) as TextView
-                    textSlowMotionStarTime?.setText(ToolUtils.stringForTime(startTime.toLong()))
+                    textSlowMotionStarTime.text = ToolUtils.stringForTime(startTime)
                 }
             }
 
@@ -510,14 +496,14 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
         })
 
 
-        btn_slowmotion = findViewById<View>(R.id.slow_motion_btn) as TextView
-        btn_slowmotion!!.setOnClickListener(this)
-        slowmotion_flag = false
-        slow_setting_layout = findViewById(R.id.slow_motion_setting_layout) as View
-        slow_setting_layout!!.visibility = View.INVISIBLE
+        btnSlowmotion = findViewById<View>(R.id.slow_motion_btn) as TextView
+        btnSlowmotion!!.setOnClickListener(this)
+        slowmotionFlag = false
+        slowSettingLayout = findViewById(R.id.slow_motion_setting_layout) as View
+        slowSettingLayout!!.visibility = View.INVISIBLE
 
-        btn_effect_setting = findViewById<View>(R.id.effect_setting_btn) as TextView
-        btn_effect_setting!!.setOnClickListener(this)
+        btnEffectSetting = findViewById<View>(R.id.effect_setting_btn) as TextView
+        btnEffectSetting!!.setOnClickListener(this)
 
         viewEditLayout = findViewById(R.id.gtv_video_edit_layout) as View
 
@@ -547,8 +533,8 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
         mScrollTrackView!!.setSpaceSize(6)
         mScrollTrackView!!.setTrackItemWidth(6)
         mScrollTrackView!!.setLoopRun(true)
-        mScrollTrackView!!.setDuration(MediaUtil.getMediaDuration(musicPath)) // 音频时间
-        mScrollTrackView!!.setCutDuration(MediaUtil.getMediaDuration(videoPath))//屏幕左边跑到右边持续的时间,以视频长度为准
+        mScrollTrackView!!.setDuration(MediaUtil.getMediaDuration(musicPath!!)) // 音频时间
+        mScrollTrackView!!.setCutDuration(MediaUtil.getMediaDuration(videoPath!!))//屏幕左边跑到右边持续的时间,以视频长度为准
         mScrollTrackView!!.stopMove()
         mScrollTrackView!!.setOnProgressRunListener(object : ScrollTrackView.OnProgressRunListener {
             override fun onTrackStart(i: Int) {
@@ -571,8 +557,8 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
     private fun initGTVSDK() {
         val editCallback = object : SimpleEditCallback() {
             override fun onPrepared() {
-                mEditor!!.setDisplayMode(true)
-                mVideoDuration = mEditor!!.getDuration()
+                mEditor!!.displayMode = true
+                mVideoDuration = mEditor!!.duration
                 //LogUtils.DebugLog(TAG, "  " + mEditor.getDuration() + "    " + mEditor.getCurrentPosition());
                 if (videoEffectEditControlView != null) {
                     videoEffectEditControlView!!.init(mEditor!!, object : VideoEffectEditControlView.OnFinishListener{
@@ -619,7 +605,7 @@ class GTVVideoEditActivity : AppCompatActivity(), View.OnClickListener {
         // reloadSettingFlag: 是否从 编辑工作目录的编辑设定文件 导入 编辑设定
         // 第一次编辑（从拍摄页面过来）： false
         // 从草稿箱打开：true， 可以读入原有的编辑设定
-        val reloadSettingFlag = if (fromDraft) true else false
+        val reloadSettingFlag = fromDraft
 
         mEditor!!.init(glSurfaceView, videoPath, editWorkFloder, reloadSettingFlag, editCallback)
         if (musicPath != null) {

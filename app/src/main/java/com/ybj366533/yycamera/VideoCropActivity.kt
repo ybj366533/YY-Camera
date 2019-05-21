@@ -1,5 +1,6 @@
 package com.ybj366533.yycamera
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.media.MediaScannerConnection
 import android.net.Uri
@@ -55,7 +56,8 @@ class VideoCropActivity : AppCompatActivity() {
 
     private var urls: ArrayList<String>? = null
     //抽帧完成异步处理
-    internal var getVideoFrameHandler: Handler = object : Handler() {
+    private var getVideoFrameHandler: Handler = @SuppressLint("HandlerLeak")
+    object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == 1) {
@@ -190,10 +192,10 @@ class VideoCropActivity : AppCompatActivity() {
         }
         Log.e("", " scan path = $outputPath")
         //开始扫描，扫描后推出
-        msc!!.scanFile(this, arrayOf(outputPath), arrayOf("video/mp4"), MediaScannerConnection.OnScanCompletedListener { path, uri ->
-            Toast.makeText(this@VideoCropActivity, "裁切成功", Toast.LENGTH_LONG).show()
-            //startScanFile();
-        })
+//        msc!!.scanFile(this, arrayOf(outputPath), arrayOf("video/mp4"), MediaScannerConnection.OnScanCompletedListener { path, uri ->
+//            Toast.makeText(this@VideoCropActivity, "裁切成功", Toast.LENGTH_LONG).show()
+//            startScanFile()
+//        })
     }
 
 

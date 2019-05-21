@@ -122,10 +122,10 @@ class VisualEffectRecyclerAdapter(private val context: Context) : RecyclerView.A
 
     inner class ImageTextHolder(itemView: View, onTouchListener: View.OnTouchListener) : RecyclerView.ViewHolder(itemView) {
 
-        var imageView: ImageView
-        var textView: TextView
-        var mLayout: FrameLayout
-        var isSelect = false
+        private var imageView: ImageView
+        private var textView: TextView
+        private var mLayout: FrameLayout
+        private var ismSelect = false
 
         init {
             imageView = itemView.findViewById(R.id.mImage) as ImageView
@@ -143,9 +143,9 @@ class VisualEffectRecyclerAdapter(private val context: Context) : RecyclerView.A
             this.itemView.tag = pos
         }
 
-        fun setSelect(isSelect: Boolean) {
-            this.isSelect = isSelect
-            if (isSelect) {
+        fun setSelect(ismSelect: Boolean) {
+            this.ismSelect = ismSelect
+            if (ismSelect) {
                 mLayout.setBackgroundColor(context.resources.getColor(R.color.color2))
             } else {
                 mLayout.setBackgroundColor(context.resources.getColor(R.color.color_null))

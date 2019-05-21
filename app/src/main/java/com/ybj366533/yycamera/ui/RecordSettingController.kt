@@ -66,19 +66,22 @@ class RecordSettingController(act: GTVVideoRecordStreamActivity, private val con
 
         mEffectList = `$`(R.id.mEffectList)
         mEffectList.layoutManager = GridLayoutManager(act.applicationContext, 5)
-        mEffectList.setAdapter(mEffAdapter = StickerRecylerAdapter(act))
+        mEffAdapter = StickerRecylerAdapter(act)
+        mEffectList.adapter = mEffAdapter
         mEffAdapter!!.setEffectCheckListener(listener)
 
         // tod $ ?
         mFilterList = `$`(R.id.mFilterList)
         mFilterList.layoutManager = GridLayoutManager(act.applicationContext, 4)
-        mFilterList.setAdapter(filterR ecyclerAdapter = FilterRecyclerAdapter(act))
+        filterRecyclerAdapter= FilterRecyclerAdapter(act)
+        mFilterList.adapter = filterRecyclerAdapter
         filterRecyclerAdapter!!.setFilterCheckListener(filterListener)
 
 
         mSpeedList = `$`(R.id.mSpeedList)
         mSpeedList.layoutManager = LinearLayoutManager(act.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        mSpeedList.setAdapter(speedRecyclerAdapter = SpeedRecyclerAdapter(act))
+        speedRecyclerAdapter = SpeedRecyclerAdapter(act)
+        mSpeedList.adapter = speedRecyclerAdapter
 
 
         //mSeekBarFilter= $(R.id.mSeekBarFilter);

@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.gtv.cloud.editor.GTVideoEffectInfo
+import com.gtv.cloud.editor.IGTVVideoEditor
 
 import com.ybj366533.yycamera.R
 
@@ -21,8 +22,8 @@ import java.util.ArrayList
 
 class RecordedLayout : View {
 
-    private var measuredWidth = -1
-    private var measuredHeight = -1
+    private var aMeasuredWidth = -1
+    private var aMeasuredHeight = -1
     private var paintCursor: Paint? = null
     private var dp6: Int = 0
     private var dp10: Int = 0
@@ -116,10 +117,10 @@ class RecordedLayout : View {
                         mCursor = 0f
                         rectF!!.right = 0f
                         rectF!!.left = dp10.toFloat()
-                    } else if (mCursor > measuredWidth - dp10) {
-                        rectF!!.left = measuredWidth.toFloat()
-                        rectF!!.right = (measuredWidth - dp10).toFloat()
-                        mCursor = measuredWidth.toFloat()
+                    } else if (mCursor > aMeasuredWidth - dp10) {
+                        rectF!!.left = aMeasuredWidth.toFloat()
+                        rectF!!.right = (aMeasuredWidth - dp10).toFloat()
+                        mCursor = aMeasuredWidth.toFloat()
                     } else {
                         rectF!!.right = rectF!!.right + scrollX
                         rectF!!.left = rectF!!.left + scrollX
@@ -129,14 +130,14 @@ class RecordedLayout : View {
                 }
                 downX = event.x
                 if (onGestureListener != null) {
-                    onGestureListener!!.onClick(mCursor / measuredWidth)
+                    onGestureListener!!.onClick(mCursor / aMeasuredWidth)
                 }
             }
             MotionEvent.ACTION_UP -> {
                 downX = 0f
                 isScroll = false
                 if (scrollChange && onGestureListener != null) {
-                    onGestureListener!!.onClick(mCursor / measuredWidth)
+                    onGestureListener!!.onClick(mCursor / aMeasuredWidth)
                 }
                 scrollChange = false
             }
@@ -159,21 +160,25 @@ class RecordedLayout : View {
     /**
      * 设置进度
      */
-    fun setProgress(progress: Float) {
+    fun setProgress(progress: Int) {
         //Log.e("typePosition", "typePosition@" + typePosition);
-        this.progress = progress
+        this.progress = progress.toFloat()
         //选择绘制颜色样式
-        this.mCursor = measuredWidth * progress
+        this.mCursor = aMeasuredWidth * progress.toFloat()
 
-        if (mCursor < 0) {
-            rectF!!.left = 0f
-            rectF!!.right = dp10.toFloat()
-        } else if (mCursor > measuredWidth - dp10) {
-            rectF!!.left = (measuredWidth - dp10).toFloat()
-            rectF!!.right = measuredWidth.toFloat()
-        } else {
-            rectF!!.left = mCursor
-            rectF!!.right = dp10 + mCursor
+        when {
+            mCursor < 0 -> {
+                rectF!!.left = 0f
+                rectF!!.right = dp10.toFloat()
+            }
+            mCursor > aMeasuredWidth - dp10 -> {
+                rectF!!.left = (aMeasuredWidth - dp10).toFloat()
+                rectF!!.right = aMeasuredWidth.toFloat()
+            }
+            else -> {
+                rectF!!.left = mCursor
+                rectF!!.right = dp10 + mCursor
+            }
         }
         invalidate()
 
@@ -193,15 +198,15 @@ class RecordedLayout : View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        if (measuredWidth == -1) {
-            measuredWidth = getMeasuredWidth()
-            measuredHeight = getMeasuredHeight()
+        if (aMeasuredWidth == -1) {
+            aMeasuredWidth = measuredWidth
+            aMeasuredHeight = measuredHeight
 
             radius = dp10.toFloat()
 
             rectF = RectF()
             rectF!!.left = 0f
-            rectF!!.top = measuredHeight.toFloat()
+            rectF!!.top = aMeasuredHeight.toFloat()
             rectF!!.right = dp10.toFloat()
             rectF!!.bottom = 0f
         }
@@ -216,22 +221,22 @@ class RecordedLayout : View {
     override fun onDraw(canvas: Canvas) {
         //绘制进度条背景
         paintProgressBg!!.color = getTypeColor(null)
-        canvas.drawLine(0f, (measuredHeight / 2).toFloat(), measuredWidth.toFloat(), (measuredHeight / 2).toFloat(), paintProgressBg!!)
+        canvas.drawLine(0f, (aMeasuredHeight / 2).toFloat(), aMeasuredWidth.toFloat(), (aMeasuredHeight / 2).toFloat(), paintProgressBg!!)
         //根据 EffectInfoList 绘制已设置类型区间
         for (x in effectInfoList.indices) {
-            paintProgress!!.color = getTypeColor(effectInfoList[x].getEffectType())
-            if (effectInfoList[x].getEndTime() > 0) {
-                canvas.drawLine(getTypeInfoSplit(effectInfoList[x].getStartTime()), (measuredHeight / 2).toFloat(),
-                        getTypeInfoSplit(effectInfoList[x].getEndTime()), (measuredHeight / 2).toFloat(), paintProgress!!)
+            paintProgress!!.color = getTypeColor(effectInfoList[x].effectType)
+            if (effectInfoList[x].endTime > 0) {
+                canvas.drawLine(getTypeInfoSplit(effectInfoList[x].startTime.toFloat()), (aMeasuredHeight / 2).toFloat(),
+                        getTypeInfoSplit(effectInfoList[x].endTime.toFloat()), (aMeasuredHeight / 2).toFloat(), paintProgress!!)
             } else {
                 if (isInfoType)
-                    canvas.drawLine(getTypeInfoSplit(effectInfoList[x].getStartTime()), (measuredHeight / 2).toFloat(), progress * measuredWidth, (measuredHeight / 2).toFloat(), paintProgress!!)
+                    canvas.drawLine(getTypeInfoSplit(effectInfoList[x].startTime.toFloat()), (aMeasuredHeight / 2).toFloat(), progress * aMeasuredWidth, (aMeasuredHeight / 2).toFloat(), paintProgress!!)
             }
         }
         //绘制游标
         paintCursor!!.color = Color.YELLOW
-        //canvas.drawLine(mCursor, measuredHeight - dp6, mCursor, dp6, paintCursor);
-        canvas.drawCircle(mCursor, (measuredHeight / 2).toFloat(), radius, paintCursor!!)
+        //canvas.drawLine(mCursor, aMeasuredHeight - dp6, mCursor, dp6, paintCursor);
+        canvas.drawCircle(mCursor, (aMeasuredHeight / 2).toFloat(), radius, paintCursor!!)
 
     }
 
@@ -292,6 +297,6 @@ class RecordedLayout : View {
      * @return
      */
     private fun getTypeInfoSplit(mTime: Float): Float {
-        return measuredWidth * (mTime / maxTime)
+        return aMeasuredWidth * (mTime / maxTime)
     }
 }

@@ -1,7 +1,6 @@
 package com.ybj366533.yycamera.ui
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AlertDialog
@@ -19,6 +18,7 @@ import android.widget.TextView
 import com.gtv.cloud.editor.GTVideoEffectInfo
 import com.gtv.cloud.editor.IGTVVideoEditor
 import com.ybj366533.yycamera.R
+import com.ybj366533.yycamera.utils.ToolUtils
 import com.ybj366533.yycamera.widget.RecordedLayout
 
 import java.lang.ref.WeakReference
@@ -71,9 +71,10 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
         val layoutInflater = LayoutInflater.from(context)
         contentView = layoutInflater.inflate(R.layout.layout_video_effect_edit, this, true)
 
-        mStickersRecycleView = findViewById(R.id.rv_stickers) as RecyclerView
+        mStickersRecycleView = findViewById<RecyclerView>(R.id.rv_stickers)
         mStickersRecycleView!!.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-        mStickersRecycleView!!.setAdapter(mAdapter = VisualEffectRecyclerAdapter(mContext))
+        mAdapter = VisualEffectRecyclerAdapter(mContext!!)
+        mStickersRecycleView!!.adapter = mAdapter
 
         mStickersRecycleView!!.visibility = View.VISIBLE
         mAdapter!!.setVisualEffectCheckListener(object : VisualEffectRecyclerAdapter.OnVisualEffectCheckListener {
@@ -199,8 +200,8 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
 
                 mEditor!!.seekTo(0)
                 mEditor!!.playPause()
-                updateProgress(mEditor!!.getDuration(), mEditor!!.getCurrentPosition())
-                mRecordedLayout!!.setMaxTime(mEditor!!.getDuration())
+                updateProgress(mEditor!!.duration, mEditor!!.currentPosition)
+                mRecordedLayout!!.setMaxTime(mEditor!!.duration)
                 myHandler!!.sendEmptyMessage(MSG_UPDATE_PROGRESS)
             } else {
 
@@ -239,7 +240,7 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
         }
 
         if (id == R.id.effect_cancel_btn) {
-            if (mEditor != null && mEditor!!.getVideoEffectList() != null && mEditor!!.getVideoEffectList().size() > 0) {
+            if (mEditor != null && mEditor!!.videoEffectList != null && mEditor!!.videoEffectList.size > 0) {
                 val mAlertDialog = AlertDialog.Builder(mContext!!)
                         .setTitle("取消编辑")
                         .setMessage("是否清除已添加的特效？")
@@ -271,26 +272,26 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
         }
         //撤销特效
         if (id == R.id.btn_delete_mode) {
-            if (mEditor!!.getVideoEffectList().size() > 0) {
-                val infos = ArrayList(mEditor!!.getVideoEffectList())
+            if (mEditor!!.videoEffectList.size > 0) {
+                val infos = ArrayList(mEditor!!.videoEffectList)
                 Log.e("xxx", "bbb=" + infos.size)
                 val size = infos.size
                 mEditor!!.removeLastVideoEffect()
-                Log.e("xxx", "bbb=" + infos.size + ";" + mEditor!!.getVideoEffectList().size())
-                mRecordedLayout!!.setEffectInfoList(mEditor!!.getVideoEffectList(), false)
-                updateSeekTo(if (size == 0) 0 else infos.get(size - 1).getStartTime())
+                Log.e("xxx", "bbb=" + infos.size + ";" + mEditor!!.videoEffectList.size)
+                mRecordedLayout!!.setEffectInfoList(mEditor!!.videoEffectList, false)
+                updateSeekTo(if (size == 0) 0 else infos[size - 1].startTime)
             }
         }
     }
 
-    fun updateProgressText(duration: Int, position: Int) {
+    private fun updateProgressText(duration: Int, position: Int) {
 
         if (mLiveTimeText != null) {
-            mLiveTimeText!!.setText(ToolUtils.stringForTime(position))
+            mLiveTimeText!!.text = ToolUtils.stringForTime(position)
         }
 
         if (mLiveTotalTimeText != null) {
-            mLiveTotalTimeText!!.setText(ToolUtils.stringForTime(duration))
+            mLiveTotalTimeText!!.text = ToolUtils.stringForTime(duration)
         } else {
             //
         }
@@ -298,7 +299,7 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
     }
 
     // 更新进度条以,播放时间
-    fun updateProgress(duration: Int, position: Float) {
+    fun updateProgress(duration: Int, position: Int) {
         if (mRecordedLayout != null && duration > 0) {
             //            long positionProgress = 1000L * position;
             //            int pos = (int) (positionProgress / duration);
@@ -338,12 +339,12 @@ class VideoEffectEditControlView : LinearLayout, View.OnClickListener {
 
                     if (videoEffectEditControlView.mEditor != null) {
 
-                        val duration = videoEffectEditControlView.mEditor!!.getDuration()
-                        val currentPosition = videoEffectEditControlView.mEditor!!.getCurrentPosition()
+                        val duration = videoEffectEditControlView.mEditor!!.duration
+                        val currentPosition = videoEffectEditControlView.mEditor!!.currentPosition
 
                         if (duration > 0 && currentPosition >= 0) {
                             Log.e("updateProgress", "duration：$currentPosition")
-                            videoEffectEditControlView.updateProgress(duration, currentPosition.toFloat())
+                            videoEffectEditControlView.updateProgress(duration, currentPosition)
                         }
                     }
 

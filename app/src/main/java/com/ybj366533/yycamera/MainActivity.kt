@@ -77,11 +77,11 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
 
-            if (checkAudioPermission(this) == false) {
+            if (!checkAudioPermission(this)) {
                 Toast.makeText(applicationContext, "没有麦克风权限", Toast.LENGTH_SHORT).show()
             }
 
-            if (checkCameraPermission(this) == false) {
+            if (!checkCameraPermission(this)) {
                 Toast.makeText(applicationContext, "没有摄像头权限", Toast.LENGTH_SHORT).show()
             }
         }
@@ -113,38 +113,32 @@ class MainActivity : AppCompatActivity() {
         Log.e("GTV", "copyFilesFassets cost " + (System.currentTimeMillis() - s))
 
 
-        val videoCamBtn = findViewById<View>(R.id.main_btn_record) as ImageView
-        videoCamBtn.setOnClickListener(
-                View.OnClickListener {
-                    val intent = Intent(this@MainActivity, GTVVideoRecordStreamActivity::class.java)
-                    val recWorkFolder = ToolUtils.getExternalFilesPath(this@MainActivity) + "/" + Constants.REC_WORK_FOLDER
-                    intent.putExtra(Constants.REC_WORK_FOLDER, recWorkFolder)
-                    startActivity(intent)
-                    return@OnClickListener
-                })
+        val videoCamBtn = findViewById<View>(R.id.btn_record) as ImageView
+        videoCamBtn.setOnClickListener {
+            val intent = Intent(this@MainActivity, GTVVideoRecordStreamActivity::class.java)
+            val recWorkFolder = ToolUtils.getExternalFilesPath(this@MainActivity) + "/" + Constants.REC_WORK_FOLDER
+            intent.putExtra(Constants.REC_WORK_FOLDER, recWorkFolder)
+            startActivity(intent)
+        }
 
-        val draft = findViewById<View>(R.id.main_draft) as TextView
-        draft.setOnClickListener(
-                View.OnClickListener {
-                    val intent = Intent(this@MainActivity, DraftListActivity::class.java)
-
-                    startActivity(intent)
-                    return@OnClickListener
-                })
+//        val draft = findViewById<View>(R.id.btn_draft) as TextView
+//        draft.setOnClickListener {
+//            val intent = Intent(this@MainActivity, DraftListActivity::class.java)
+//
+//            startActivity(intent)
+//        }
         //videoEditBtn.setVisibility(View.INVISIBLE);
 
         //final Button videoCropBtn = (Button)findViewById(R.id.video_crop_btn);
-        val videoPlayBtn = findViewById<View>(R.id.main_play_btn) as ImageView
-        videoPlayBtn.setOnClickListener {
-            /*Intent intent = new Intent(MainActivity.this, GTVPlayerDemoActivity.class);
-                        startActivity(intent);
-                        return;*/
-            /*  Intent intent = new Intent(Intent.ACTION_PICK);
-                        intent .setType("video*//*");
-                        startActivityForResult(intent, VIDEO_REQUEST_CODE);*/
-        }
-
-        //videoPlayBtn.setVisibility(View.INVISIBLE);
+//        val videoPlayBtn = findViewById<View>(R.id.btn_play) as ImageView
+//        videoPlayBtn.setOnClickListener {
+//            /*Intent intent = new Intent(MainActivity.this, GTVPlayerDemoActivity.class);
+//                        startActivity(intent);
+//                        return;*/
+//            /*  Intent intent = new Intent(Intent.ACTION_PICK);
+//                        intent .setType("video*//*");
+//                        startActivityForResult(intent, VIDEO_REQUEST_CODE);*/
+//        }
 
         var path: String? = null
         val dataDir = applicationContext.getExternalFilesDir(null)
@@ -154,22 +148,6 @@ class MainActivity : AppCompatActivity() {
         if (path != null)
             AssetsHandler.instance.copyFilesFassets(applicationContext, "modelsticker", path, "*")
 
-        // 导入视频API测试
-        // 适用于导入第三方视频 或者 已经合成的视频 为 全I帧视频
-        //        new Thread(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                String from = "/storage/emulated/0/DCIM/mm.mp4";
-        //                String to = "/storage/emulated/0/DCIM/crop.mp4";
-        //                boolean success = GTVVideoUtils.importMovie(from, to, new GTVVideoUtils.OnProgressCallback() {
-        //                    @Override
-        //                    public int onProgress(int i) {
-        //                        Log.e("onProgress--->", "onProgress = " + i);
-        //                        return 0;
-        //                    }
-        //                });
-        //            }
-        //        }).start();
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

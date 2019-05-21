@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" >
-                <com.gtv.cloud.gtvideo.widget.RecordedLayout
+                <com.ybj366533.yycamera.widget.RecordedLayout
                     android:id="@+id/ll_recoded"
                     android:layout_width="280dp"
                     android:layout_height="24dp" />
