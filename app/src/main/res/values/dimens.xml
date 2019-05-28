@@ -16,4 +16,18 @@
     <dimen name="dp80">80dp</dimen>
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp6">6dp</dimen>
+
+    <dimen name="font_size_112">112sp</dimen>
+    <dimen name="font_size_56">56sp</dimen>
+    <dimen name="font_size_45">45sp</dimen>
+    <dimen name="font_size_34">34sp</dimen>
+    <dimen name="font_size_28">28sp</dimen>
+    <dimen name="font_size_24">24sp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_9">9sp</dimen>
 </resources>

@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#000000"
-    tools:context=".GTVVideoEditActivity">
+    tools:context=".view.VideoEditActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/gtv_video_edit_layout"
+        android:id="@+id/YY_video_edit_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

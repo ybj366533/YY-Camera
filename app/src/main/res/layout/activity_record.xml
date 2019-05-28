@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordActivity">
+    tools:context=".view.RecordActivity">
 
     <com.ybj366533.yycamera.ui.CameraGLSurfaceView
         android:layout_width="match_parent"

@@ -1,201 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:camera="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_simple_stream"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GTVVideoRecordStreamActivity">
+<layout>
 
-<com.ybj366533.yycamera.widget.CameraGLSurfaceView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/mixView"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
-
-    <LinearLayout
-        android:id="@+id/kklive_tools_bar"
-        android:layout_width="match_parent"
-        android:clickable="true"
-        android:layout_height="60dp"
-        android:background="@color/kklive_color_bg_0pct">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/kklive_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="left|center_vertical"
-                android:layout_marginLeft="15dp"
-                android:src="@mipmap/btn_back"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/btn_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/btn_light"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/btn_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_magic_turn"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="right|center_vertical"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/start_live_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="下一步" />
-        </LinearLayout>
-    </LinearLayout>
-    <com.ybj366533.yycamera.ui.RecordTimelineView
-        android:id="@+id/kklive_record_timeline"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/kklive_tools_bar"/>
-    <TextView
-        android:id="@+id/kklive_record_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:layout_below="@id/kklive_record_timeline"
-        android:gravity="center"
-        android:visibility="invisible"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.ybj366533.yycamera.ui.FocusImageView
-            android:id="@+id/focusImageView"
-            android:layout_width="75dip"
-            android:layout_height="75dip"
-            camera:focus_focusing_id="@drawable/focus_focusing"
-            camera:focus_success_id="@drawable/focus_focused"
-            camera:focus_fail_id="@drawable/focus_focus_failed" />
-    </FrameLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mSettingList"
-        android:layout_below="@id/kklive_tools_bar"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"/>
-<ZoomControls
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/zoomControls"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_record_start2"
-            android:src="@mipmap/btn_record_start"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:visibility="gone"/>
-
-    <com.ybj366533.yycamera.widget.RecordedButton
-        android:id="@+id/btn_record_start"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp" />
-    <ImageView
-        android:id="@+id/btn_record_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/icon_delete"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"/>
-    <TextView
-        android:id="@+id/btn_take_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:background="@color/kklive_color_bg_0pct"
-        android:text="拍照"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"/>
-
-
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/record_setting_container"
-        android:clickable="true"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true">
-        <include layout="@layout/layout_recordsetting"
-            android:layout_width="match_parent"
-            android:layout_height="165dp"
-            android:layout_alignParentBottom="true" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textview_countdown"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/record_btn_countdown"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@android:color/black"
-            android:textSize="70dp"
-            android:textStyle="bold"
-            android:visibility="gone" />
-    </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/mMusicContainer"
-        android:visibility="gone"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:camera="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_simple_stream"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/kklive_tools_bar">
-        <include layout="@layout/layout_music_select"/>
-    </LinearLayout>
+        tools:context=".view.RecordActivity">
 
-</RelativeLayout>
+        <com.ybj366533.yycamera.widget.CameraGLSurfaceView
+            android:id="@+id/mixView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <LinearLayout
+            android:id="@+id/kklive_tools_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/kklive_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/btn_back" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btn_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/btn_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btn_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_magic_turn" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical">
+
+                <TextView
+                    android:id="@+id/start_live_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:text="下一步"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.ybj366533.yycamera.ui.RecordTimelineView
+            android:id="@+id/kklive_record_timeline"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@id/kklive_tools_bar"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/kklive_record_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kklive_record_timeline"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:visibility="invisible" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.ybj366533.yycamera.ui.FocusImageView
+                android:id="@+id/focusImageView"
+                android:layout_width="75dip"
+                android:layout_height="75dip"
+                camera:focus_fail_id="@drawable/focus_focus_failed"
+                camera:focus_focusing_id="@drawable/focus_focusing"
+                camera:focus_success_id="@drawable/focus_focused" />
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mSettingList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kklive_tools_bar"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp" />
+
+        <ZoomControls
+            android:id="@+id/zoomControls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:id="@+id/btn_record_start2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:src="@mipmap/btn_record_start"
+            android:visibility="gone" />
+
+        <com.ybj366533.yycamera.widget.RecordedButton
+            android:id="@+id/btn_record_start"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp" />
+
+        <ImageView
+            android:id="@+id/btn_record_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="60dp"
+            android:background="@mipmap/back"
+            android:visibility="gone"
+            android:scaleX="2"
+            android:scaleY="2" />
+
+        <TextView
+            android:id="@+id/btn_take_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@color/kklive_color_bg_0pct"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="拍照"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:id="@+id/record_setting_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <include
+                layout="@layout/layout_recordsetting"
+                android:layout_width="match_parent"
+                android:layout_height="165dp"
+                android:layout_alignParentBottom="true" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textview_countdown"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/record_btn_countdown"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="70dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/mMusicContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/kklive_tools_bar"
+            android:visibility="gone">
+
+            <include layout="@layout/layout_music_select" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

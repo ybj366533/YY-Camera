@@ -25,7 +25,7 @@ android {
     buildTypes {
 
         release {
-            minifyEnabled false
+            minifyEnabled false // 是否混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -35,11 +35,22 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
+    dataBinding {
+        enabled true
+    }
+
     sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-            java.srcDirs = ['src/main/kotlin', 'src/main/java']
-        }
+        main.java.srcDirs = ['src/main/kotlin', 'src/main/java']
+    }
+
+
+    packagingOptions {
+        exclude 'META-INF/base_debug.kotlin_module'
+        exclude 'META-INF/base_release.kotlin_module'
     }
 
 }
@@ -47,6 +58,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    annotationProcessor rootProject.ext.dependencies['databinding-compile']
     implementation rootProject.ext.dependencies['appcompat-v7']
     implementation rootProject.ext.dependencies['constraint-layout']
     implementation rootProject.ext.dependencies['recyclerview-v7']
@@ -58,17 +70,38 @@ dependencies {
     implementation rootProject.ext.dependencies['glide']
     implementation rootProject.ext.dependencies['glide-loader-okhttp3']
     implementation rootProject.ext.dependencies['fresco']
+    //RxJava
+    implementation rootProject.ext.dependencies['rxjava2']
+    implementation rootProject.ext.dependencies['rxandroid2']
+    implementation rootProject.ext.dependencies['rxpermissions2']
+    implementation rootProject.ext.dependencies['rxlifecycle2'], {
+        exclude module: 'rxjava'
+    }
+    implementation rootProject.ext.dependencies['rxlifecycle2-components']
+    //implementation rootProject.ext.dependencies['rxlifecycle2-kotlin']
 
-    implementation project(':gtvideolib')
+    //retrofit网络
+    implementation rootProject.ext.dependencies['retrofit']
+    implementation rootProject.ext.dependencies['retrofit-converter-gson']
+    implementation rootProject.ext.dependencies['retrofit-adapter-rxjava2']
+    implementation rootProject.ext.dependencies['logging-interceptor']
+
+    implementation rootProject.ext.dependencies['eventbus']
+    implementation rootProject.ext.dependencies['PhotoPicker'], {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'appcompat-v7'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+        exclude module: 'glide'
+    }
+
+
+    implementation project(':yy_videolib')
+    implementation project(':yy_image')
+
     implementation 'com.xw.repo:bubbleseekbar:3.5'
     implementation 'com.github.libq:ScrollTrackView:1.0.4'
     implementation 'com.github.libq:VideoCutView:1.0.4'
-    implementation project(':library')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-//
-//
-//    implementation 'io.reactivex:rxjava:1.3.2'
-//    implementation 'io.reactivex:rxandroid:1.2.1'
-
     testImplementation 'junit:junit:4.12'
 }

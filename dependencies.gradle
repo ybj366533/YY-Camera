@@ -108,13 +108,15 @@ ext {
             "transitions_everywhere"         : "com.andkulikov:transitionseverywhere:1.7.9",
 
             ////// ====== library ====== //////
+
             "javax.annotation"               : "javax.annotation:jsr250-api:1.0",
             "androideventbus"                : "org.simple:androideventbus:1.0.5.1",
             "android-gif-drawable"           : 'pl.droidsonroids.gif:android-gif-drawable:1.2.6',
             "cymRecyclerViewAdapter"         : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.29',
-            "slf4j-android"                  : 'rg.slf4j:slf4j-android:1.7.21',
-            ////// ====== third-party ====== ////////
-
+            "PhotoPicker"                    : 'me.iwf.photopicker:PhotoPicker:0.9.12@aar',
+            "ucrop"                          : 'com.yalantis:ucrop:2.2.0',
+            "WheelPicker"                    : 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2',
+            "Blankj-utilcode"                : 'com.blankj:utilcode:1.4.1',
             ////// ====== local library ====== ////////
 
             "junit"                          : "junit:junit:4.12"
