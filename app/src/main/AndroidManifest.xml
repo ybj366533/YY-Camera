@@ -49,7 +49,7 @@
 
         <!-- 启动页 -->
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -59,11 +59,11 @@
             </intent-filter>
         </activity>
         <!-- 主页 -->
-        <activity
-            android:name=".view.MainActivity"
-            android:configChanges="orientation"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".view.MainActivity"-->
+            <!--android:configChanges="orientation"-->
+            <!--android:launchMode="singleTask"-->
+            <!--android:screenOrientation="portrait" />-->
 
         <activity
             android:name=".view.RecordActivity"

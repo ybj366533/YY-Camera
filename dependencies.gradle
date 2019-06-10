@@ -2,20 +2,19 @@ apply from: "config.gradle"
 ext {
 
     version = [
-            "support"              : android.supportVersion,
-            "kotlin"               : android.kotlin_stdlib,
-            "anko"                 : android.anko_version,
-            "rxlifecycle2"         : "2.2.1",
-            "rxbinding2"           : "2.1.1",
-            "retrofit"             : "2.4.0",
-            "glide"                : "4.0.0",
-            "permissionsdispatcher": '3.2.0',
+            "support"          : android.supportVersion,
+            "kotlin"           : android.kotlin_version,
+            "anko"             : android.anko_version,
+            "dagger2"          : "2.11",
+            "lifecycle_version": "1.1.1",
+            "rxlifecycle2"     : "2.2.1",
+            "rxbinding2"       : "2.1.1",
+            "retrofit"         : "2.4.0",
+            "glide"            : "4.0.0",
+
     ]
 
     dependencies = [
-            ////// ====== apt ====== ///////
-
-            "databinding-compile"            : "com.android.databinding:compiler:$android.pluginVersion",
 
             ////// ====== system ====== ///////
 
@@ -28,6 +27,11 @@ ext {
             "design"                         : "com.android.support:design:${version['support']}",
             "recyclerview-v7"                : "com.android.support:recyclerview-v7:${version['support']}",
             "support-annotations"            : "com.android.support:support-annotations:${version['support']}",
+
+            // ViewModel and LiveData
+            "lifecycle-extensions"           : "android.arch.lifecycle:extensions:${version['lifecycle_version']}",
+            "lifecycle-runtime"              : "android.arch.lifecycle:runtime:${version['lifecycle_version']}",
+            "lifecycle-common-java8"         : "android.arch.lifecycle:common-java8:${version['lifecycle_version']}",
 
             "kotlin-stdlib"                  : "org.jetbrains.kotlin:kotlin-stdlib:${version['kotlin']}",
             "kotlin-stdlib-jdk7"             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${version['kotlin']}",
@@ -45,7 +49,6 @@ ext {
 
             // Anko Android support libraries
             "anko-appcompat-v7-commons"      : "org.jetbrains.anko:anko-appcompat-v7-commons:${version['anko']}",
-            "anko-appcompat-v7"              : "org.jetbrains.anko:anko-appcompat-v7:${version['anko']}",
             "anko-coroutines"                : "org.jetbrains.anko:anko-coroutines:${version['anko']}",
             "anko-cardview-v7"               : "org.jetbrains.anko:anko-cardview-v7:${version['anko']}",
             "anko-design"                    : "org.jetbrains.anko:anko-design:${version['anko']}",
@@ -80,6 +83,13 @@ ext {
             "rxpermissions2"                 : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar",
             "rxerrorhandler2"                : "me.jessyan:rxerrorhandler:2.0.2",
 
+            //dagger2
+            "dagger"                         : "com.google.dagger:dagger:${version['dagger2']}",
+            "dagger-compiler"                : "com.google.dagger:dagger-compiler:${version['dagger2']}",
+            "dagger-android"                 : "com.google.dagger:dagger-android:${version['dagger2']}",
+            "dagger-android-support"         : "com.google.dagger:dagger-android-support:${version['dagger2']}",
+            "dagger-android-processor"       : "com.google.dagger:dagger-android-processor:${version['dagger2']}",
+
             //网络
             "okhttp3"                        : "com.squareup.okhttp3:okhttp:3.8.0",
             "logging-interceptor"            : "com.squareup.okhttp3:logging-interceptor:3.8.0",
@@ -100,10 +110,6 @@ ext {
             "nineoldandroids"                : 'com.nineoldandroids:library:2.4.0',
             "eventbus"                       : "org.greenrobot:eventbus:3.1.1",
 
-            //permissionsdispatcher
-            "permissionsdispatcher"          : "com.github.hotchemi:permissionsdispatcher:${version["permissionsdispatcher"]}",
-            "permissionsdispatcherProcessor" : "com.github.hotchemi:permissionsdispatcher-processor:${version["permissionsdispatcher"]}",
-
             //动画 Transitions
             "transitions_everywhere"         : "com.andkulikov:transitionseverywhere:1.7.9",
 
@@ -120,5 +126,12 @@ ext {
             ////// ====== local library ====== ////////
 
             "junit"                          : "junit:junit:4.12"
+    ]
+
+    dependencies_apt = [
+            ////// ====== apt ====== ///////
+
+            "databinding-compiler": "com.android.databinding:compiler:$android.pluginVersion",
+            "lifecycle-compiler"  : "android.arch.lifecycle:compiler:${version['lifecycle_version']}",
     ]
 }

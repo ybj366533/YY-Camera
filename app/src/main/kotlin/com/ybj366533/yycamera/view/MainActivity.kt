@@ -11,6 +11,7 @@ import android.os.Environment
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
 import com.ybj366533.yycamera.base.utils.singleTasks
 import com.ybj366533.yycamera.utils.AssetsHandler
 import com.ybj366533.yycamera.utils.Constants
@@ -44,20 +45,35 @@ class MainActivity : BaseActivity(), IInitialize {
         }
     }
 
+    val models by lazy { Models() }
+
+    private val sleepTime = 2000
+    private var start: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-//        //去掉Activity上面的状态栏
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-//        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //去掉Activity上面的状态栏
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        TranslucentUtils.TRANSLUCENT_NAVIGATION(window)
+//        TranslucentUtils.TRANSLUCENT_NAVIGATION(window)
         builderInit()
 
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        // auto login mode, make sure all group and conversation is loaed before enter the main screen
+        start = System.currentTimeMillis()
+//        models.getVersionCfg()
+    }
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+//        TranslucentUtils.showSystemUI(window)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (resultCode == Activity.RESULT_OK) {
             Log.e("MainActivity", "urixxx" + data.data!!)
@@ -73,9 +89,13 @@ class MainActivity : BaseActivity(), IInitialize {
     }
 
     override fun initStart() {
+        val animation = AlphaAnimation(0.3f, 1.0f)
+        animation.duration = 1500
+        binding.root.startAnimation(animation)
     }
 
     override fun initView() {
+        binding.tvVersion.text = models.getVersion()
         binding.btnRecord.setOnClickListener {
             val intent = Intent(this@MainActivity, RecordActivity::class.java)
             val recWorkFolder = ToolUtils.getExternalFilesPath(this@MainActivity) + "/" + Constants.REC_WORK_FOLDER
@@ -127,6 +147,28 @@ class MainActivity : BaseActivity(), IInitialize {
         }
         if (path != null)
             AssetsHandler.instance.copyFilesFassets(applicationContext, "modelsticker", path, "*")
+    }
+
+    inner class Models {
+
+
+        /**
+         * 获取版本号
+         *
+         * @return 当前应用的版本号
+         */
+        fun getVersion(): String {
+            return try {
+                val manager = packageManager
+                val info = manager.getPackageInfo(packageName, 0)
+                val version = info.versionName
+                "v$version "
+            } catch (e: Exception) {
+                e.printStackTrace()
+                "v2.0.0 "
+            }
+        }
+
     }
 
 

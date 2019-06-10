@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YY-Camera.iml" filepath="$PROJECT_DIR$/YY-Camera.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yy_camera/yy_camera.iml" filepath="$PROJECT_DIR$/yy_camera/yy_camera.iml" />
       <module fileurl="file://$PROJECT_DIR$/yy_image/yy_image.iml" filepath="$PROJECT_DIR$/yy_image/yy_image.iml" />
       <module fileurl="file://$PROJECT_DIR$/yy_videolib/yy_videolib.iml" filepath="$PROJECT_DIR$/yy_videolib/yy_videolib.iml" />
     </modules>

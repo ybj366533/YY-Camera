@@ -42,6 +42,9 @@ import java.io.FileOutputStream
 class RecordActivity : BaseActivity(), IInitialize, StickerRecylerAdapter.OnStickerCheckListener, FilterRecyclerAdapter.OnFilterCheckListener, View.OnClickListener {
     private lateinit var binding: ActivityVideoRecordBinding
 
+    //TODO ～ Models 拍摄组建
+    val models by lazy { Models() }
+
     private var glSurfaceView: CameraGLSurfaceView? = null
 
     private lateinit var mNextBtn: TextView
@@ -500,7 +503,7 @@ class RecordActivity : BaseActivity(), IInitialize, StickerRecylerAdapter.OnStic
         zoomControls = findViewById<View>(R.id.zoomControls) as ZoomControls
         zoomControls!!.visibility = View.INVISIBLE
 
-        glSurfaceView = findViewById<View>(R.id.mixView) as CameraGLSurfaceView
+        glSurfaceView = findViewById<View>(R.id.sv_camera) as CameraGLSurfaceView
         //glSurfaceView.setOnTouchListener(this);
         glSurfaceView!!.setOnCameraGLViewListener(object : CameraGLSurfaceView.OnCameraGLViewListener {
             override fun onLongClick() {
@@ -721,12 +724,15 @@ class RecordActivity : BaseActivity(), IInitialize, StickerRecylerAdapter.OnStic
 
     companion object {
 
-        private val TAG = "RecActivity"
+        private const val TAG = "RecordActivity"
 
-        private val MSG_UPDATE_PROGRESS = 0
+        private const val MSG_UPDATE_PROGRESS = 0
 
-        private val MAX_RECORD_DURATION = 15 * 1000
+        private const val MAX_RECORD_DURATION = 15 * 1000
     }
 
+    inner class Models {
 
+
+    }
 }

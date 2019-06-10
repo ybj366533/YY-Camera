@@ -1,0 +1,17 @@
+plugins {
+    id 'kotlin-multiplatform'
+}
+
+// Determine host preset.
+def hostPreset = MPPTools.defaultHostPreset(project, [kotlin.presets.macosX64])
+
+kotlin {
+    targets {
+        fromPreset(hostPreset, 'opengl') {
+            compilations.main.outputKinds 'EXECUTABLE'
+            compilations.main.entryPoint 'sample.opengl.main'
+        }
+    }
+}
+
+MPPTools.createRunTask(project, 'runProgram', kotlin.targets.opengl)

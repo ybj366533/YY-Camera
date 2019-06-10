@@ -58,7 +58,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    annotationProcessor rootProject.ext.dependencies['databinding-compile']
+    annotationProcessor rootProject.ext.dependencies_apt['databinding-compiler']
     implementation rootProject.ext.dependencies['appcompat-v7']
     implementation rootProject.ext.dependencies['constraint-layout']
     implementation rootProject.ext.dependencies['recyclerview-v7']

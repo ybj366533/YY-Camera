@@ -10,7 +10,7 @@
         tools:context=".view.RecordActivity">
 
         <com.ybj366533.yycamera.widget.CameraGLSurfaceView
-            android:id="@+id/mixView"
+            android:id="@+id/sv_camera"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -18,10 +18,9 @@
             android:layout_alignParentTop="true" />
 
         <LinearLayout
-            android:id="@+id/kklive_tools_bar"
+            android:id="@+id/title_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:clickable="true">
+            android:layout_height="64dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -85,7 +84,7 @@
             android:id="@+id/kklive_record_timeline"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_below="@id/kklive_tools_bar"
+            android:layout_below="@id/title_bar"
             android:visibility="gone" />
 
         <TextView
@@ -115,7 +114,7 @@
             android:id="@+id/mSettingList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/kklive_tools_bar"
+            android:layout_below="@id/title_bar"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp" />
@@ -154,9 +153,9 @@
             android:layout_marginRight="50dp"
             android:layout_marginBottom="60dp"
             android:background="@mipmap/back"
-            android:visibility="gone"
             android:scaleX="2"
-            android:scaleY="2" />
+            android:scaleY="2"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/btn_take_picture"
@@ -214,7 +213,7 @@
             android:id="@+id/mMusicContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/kklive_tools_bar"
+            android:layout_below="@id/title_bar"
             android:visibility="gone">
 
             <include layout="@layout/layout_music_select" />
