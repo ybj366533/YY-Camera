@@ -62,8 +62,7 @@ public class HWAACEncoder implements IAudioEncoder {
             this.bufferInfo = new MediaCodec.BufferInfo();
 
             this.mEncoder.start();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
 
             LogUtils.LOGE(TAG, "aac encoder start failed." + ex.getMessage());
             this.mEncoder = null;
@@ -116,7 +115,7 @@ public class HWAACEncoder implements IAudioEncoder {
                         byte[] input = new byte[availableSize];
 
                         System.arraycopy(read_buffer, offset, input, 0, availableSize);
-                        long timestamp = presentationTimeUs + (long)offset * 1000 * 1000/(44100*4);
+                        long timestamp = presentationTimeUs + (long) offset * 1000 * 1000 / (44100 * 4);
                         offset += availableSize;
 
                         inputBuffer.put(input);
@@ -178,7 +177,7 @@ public class HWAACEncoder implements IAudioEncoder {
                         System.arraycopy(outData, 0, packet, 0, outData.length);
 
                         if (mCallback != null) {
-                            mCallback.onAudioFrame(packet,bufferInfo.presentationTimeUs);
+                            mCallback.onAudioFrame(packet, bufferInfo.presentationTimeUs);
                         }
 
                     } else {
@@ -206,7 +205,7 @@ public class HWAACEncoder implements IAudioEncoder {
         synchronized (this) {
             mQuit.set(true);
 
-            if( mEncoder != null ) {
+            if (mEncoder != null) {
                 mEncoder.stop();
                 mEncoder = null;
             }
@@ -214,15 +213,13 @@ public class HWAACEncoder implements IAudioEncoder {
 
     }
 
-    public MediaFormat getOutputFormat()
-    {
+    public MediaFormat getOutputFormat() {
 //        if(mEncoder != null)
 //        {
 //            return mEncoder.getOutputFormat();
 //        }
 
-        if(mEncoder != null && goodFormat != null)
-        {
+        if (mEncoder != null && goodFormat != null) {
             return goodFormat;
         }
         return null;

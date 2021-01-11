@@ -87,7 +87,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             return YYRes.RESULT_ERR_UNKNOW;
         }
 
-        if( mEncoder == null ) {
+        if (mEncoder == null) {
             return YYRes.RESULT_ERR_UNKNOW;
         }
 
@@ -112,14 +112,14 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
         synchronized (HWSurfaceEncoder.this) {
 
-            if( mEncoder == null ) {
+            if (mEncoder == null) {
                 return -1;
             }
 
             try {
 
 
-                while(true) {
+                while (true) {
 
                     int index = mEncoder.dequeueOutputBuffer(mBufferInfo, timeoutUs);
 
@@ -132,15 +132,13 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
                         encodeToVideoTrack(index);
                         mEncoder.releaseOutputBuffer(index, false);
-                    }
-                    else {
+                    } else {
                         LogUtils.LOGE(TAG, "unknow status !" + index);
                         break;
                     }
                 }
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
 
                 LogUtils.LOGE(TAG, "encodeBitmap exception " + ex.getMessage());
             }
@@ -154,7 +152,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
         synchronized (HWSurfaceEncoder.this) {
 
-            if( mEncoder == null ) {
+            if (mEncoder == null) {
                 return;
             }
 
@@ -166,10 +164,9 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
         ByteBuffer encodedData = null;
 
-        if( Build.VERSION.SDK_INT > 20 ) {
+        if (Build.VERSION.SDK_INT > 20) {
             encodedData = mEncoder.getOutputBuffer(encoderStatus);
-        }
-        else {
+        } else {
             ByteBuffer[] buffers = mEncoder.getOutputBuffers();
             encodedData = buffers[encoderStatus];
         }
@@ -193,18 +190,18 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             byte[] data = new byte[mBufferInfo.size];
             encodedData.get(data);
 
-            int sps_offset,sps_len,pps_offset,pps_len;
+            int sps_offset, sps_len, pps_offset, pps_len;
             sps_offset = pps_offset = -1;
 
-            for( int i=0; i<data.length-4; i++ ) {
+            for (int i = 0; i < data.length - 4; i++) {
 
-                if( data[i] == 0x00 && data[i+1] == 0x00 && data[i+2] == 0x00 && data[i+3] == 0x01 ) {
-                    if( sps_offset == -1 ) {
-                        sps_offset = i+4;
+                if (data[i] == 0x00 && data[i + 1] == 0x00 && data[i + 2] == 0x00 && data[i + 3] == 0x01) {
+                    if (sps_offset == -1) {
+                        sps_offset = i + 4;
                         continue;
                     }
-                    if( pps_offset == -1 ) {
-                        pps_offset = i+4;
+                    if (pps_offset == -1) {
+                        pps_offset = i + 4;
                         continue;
                     }
                 }
@@ -221,12 +218,12 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
             isMeta = true;
 
-            if( mCallback != null ) {
+            if (mCallback != null) {
                 mCallback.onVideoMetaInfo(sps_data, pps_data);
             }
         }
 
-        if( !isMeta ) {
+        if (!isMeta) {
 
 //            encodedData.position(mBufferInfo.offset);
 //            encodedData.limit(mBufferInfo.offset + mBufferInfo.size);
@@ -258,7 +255,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 //            }
 
 
-            if( mCallback != null ) {
+            if (mCallback != null) {
                 //mCallback.onVideoFrame(data, isKey,mBufferInfo.presentationTimeUs);
                 mCallback.onVideoFrame(encodedData, mBufferInfo);
             }
@@ -274,11 +271,11 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             try {
                 //MediaFormat newFormat = mEncoder.getOutputFormat();
                 LogUtils.LOGS("video format change :" + newFormat.getByteBuffer("csd-0").position()
-                        + " " +newFormat.getByteBuffer("csd-0").limit()
+                        + " " + newFormat.getByteBuffer("csd-0").limit()
                         + " " + newFormat.getString(MediaFormat.KEY_MIME)
                         + " " + newFormat.getInteger(MediaFormat.KEY_WIDTH)
                         + " " + newFormat.getInteger(MediaFormat.KEY_HEIGHT));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 LogUtils.LOGS("video format get failed");
                 LogUtils.LOGS(e.getMessage());
             }
@@ -309,7 +306,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
         //format.setInteger("level", MediaCodecInfo.CodecProfileLevel.AVCLevel3);
 
 
-        String badName =null;
+        String badName = null;
 
         // 首先尝试用type来创建(保留原有逻辑？)
         try {
@@ -319,8 +316,8 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             MediaCodecInfo.CodecCapabilities capabilities = mEncoder.getCodecInfo().getCapabilitiesForType(MIME_TYPE);
             int support_level = MediaCodecInfo.CodecProfileLevel.AVCLevel1;
             for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                if( profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline ) {
-                    if( profileLevel.level > support_level ) {
+                if (profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline) {
+                    if (profileLevel.level > support_level) {
                         support_level = profileLevel.level;
                     }
                 }
@@ -335,12 +332,11 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             mInputSurface = mEncoder.createInputSurface();
 
             mEncoder.start();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
             LogUtils.LOGE(TAG, "### createEncoderByType failed : " + e.getMessage());
 
-            if( mEncoder != null ) {
+            if (mEncoder != null) {
                 badName = mEncoder.getName();
 //                String badName = mEncoder.getName();
 //                if( validMediaCodecMap.containsKey(badName) ) {
@@ -350,7 +346,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
                 try {
                     mEncoder.stop();
                     mEncoder.release();
-                }catch (Exception e1 ) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
                 mEncoder = null;
@@ -359,7 +355,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
 
         // 通过createEncoderByType创建失败，尝试其他候选
-        if( mEncoder == null ) {
+        if (mEncoder == null) {
 
             Map<String, MediaCodecInfo> validMediaCodecMap = new HashMap<>();
             {
@@ -387,13 +383,12 @@ public class HWSurfaceEncoder implements IVideoEncoder {
                     MediaCodecInfo.CodecCapabilities capabilities = null;
                     try {
                         capabilities = mediaCodecInfo.getCapabilitiesForType(MIME_TYPE);
-                    }
-                    catch (Exception e1) {
+                    } catch (Exception e1) {
                         capabilities = null;
                         // 有可能有些编码器无法获取
                         LogUtils.LOGE(TAG, "getCapabilitiesForType failed: " + mediaCodecInfo.toString() + " -- " + e1.getMessage());
                     }
-                    if( capabilities == null ) {
+                    if (capabilities == null) {
                         continue;
                     }
 
@@ -411,31 +406,31 @@ public class HWSurfaceEncoder implements IVideoEncoder {
 
                     int support_baseline = 0;
                     for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                        if (profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline ) {
+                        if (profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline) {
                             support_baseline = 1;
                             break;
                         }
                     }
 
-                    if( support_baseline > 0 ) {
+                    if (support_baseline > 0) {
                         validMediaCodecMap.put(mediaCodecInfo.getName(), mediaCodecInfo);
                     }
                 }
             }
 
-            if(badName != null && validMediaCodecMap.containsKey(badName) ) {
+            if (badName != null && validMediaCodecMap.containsKey(badName)) {
                 Object o = validMediaCodecMap.get(badName);
                 validMediaCodecMap.remove(o);
             }
 
-            while(validMediaCodecMap.isEmpty() == false && mEncoder == null) {
+            while (validMediaCodecMap.isEmpty() == false && mEncoder == null) {
 
 //                List<MediaCodecInfo> v = new ArrayList<>();
 //                v.add(validMediaCodecMap.get("OMX.google.h264.encoder"));
 //                v.add(validMediaCodecMap.get("OMX.qcom.video.encoder.avc"));
 
-                Collection<MediaCodecInfo> v =  validMediaCodecMap.values();
-                for( MediaCodecInfo info:v) {
+                Collection<MediaCodecInfo> v = validMediaCodecMap.values();
+                for (MediaCodecInfo info : v) {
 
                     validMediaCodecMap.remove(info);
                     MediaCodecInfo.CodecCapabilities capabilities = info.getCapabilitiesForType(MIME_TYPE);
@@ -443,8 +438,8 @@ public class HWSurfaceEncoder implements IVideoEncoder {
                     // 任意挑选一个baseline的level
                     int support_level = MediaCodecInfo.CodecProfileLevel.AVCLevel1;
                     for (MediaCodecInfo.CodecProfileLevel profileLevel : capabilities.profileLevels) {
-                        if( profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline ) {
-                            if( profileLevel.level > support_level ) {
+                        if (profileLevel.profile == MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline) {
+                            if (profileLevel.level > support_level) {
                                 support_level = profileLevel.level;
                             }
                         }
@@ -466,19 +461,18 @@ public class HWSurfaceEncoder implements IVideoEncoder {
                         mEncoder.start();
 
                         // 没有抛异常，就算成功。。。
-                        if( mEncoder != null ) {
+                        if (mEncoder != null) {
                             break;
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
 
                         LogUtils.LOGE(TAG, "### createByCodecName failed : " + info.getName() + " --> " + e.getMessage());
 
-                        if( mEncoder != null ) {
+                        if (mEncoder != null) {
                             try {
                                 mEncoder.stop();
                                 mEncoder.release();
-                            }catch (Exception e1 ) {
+                            } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
                             mEncoder = null;
@@ -489,7 +483,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
         }
 
 
-        if( mEncoder == null ) {
+        if (mEncoder == null) {
             LogUtils.LOGE(TAG, "create video encoder failed.");
             return;
         }
@@ -504,7 +498,7 @@ public class HWSurfaceEncoder implements IVideoEncoder {
             try {
                 mEncoder.stop();
                 mEncoder.release();
-            }catch (Exception e1 ) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
             mEncoder = null;
@@ -512,15 +506,14 @@ public class HWSurfaceEncoder implements IVideoEncoder {
     }
 
     private boolean formatAvailable = false;
-    public MediaFormat getOutputFormat()
-    {
+
+    public MediaFormat getOutputFormat() {
 //        if((mEncoder != null) && (formatAvailable == true))
 //        {
 //            return mEncoder.getOutputFormat();
 //        }
 
-        if((mEncoder != null) && (goodFormat != null))
-        {
+        if ((mEncoder != null) && (goodFormat != null)) {
             return goodFormat;
         }
         return null;

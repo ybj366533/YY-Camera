@@ -97,7 +97,7 @@ dependencies {
 
 
     implementation project(':yy_videolib')
-    implementation project(':yy_image')
+//    implementation project(':yy_image')
 
     implementation 'com.xw.repo:bubbleseekbar:3.5'
     implementation 'com.github.libq:ScrollTrackView:1.0.4'
